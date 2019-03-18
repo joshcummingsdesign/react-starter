@@ -3,10 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=8080 react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "format": "prettier --write 'src/**/*.{ts,tsx,js,json}'"
+    "test": "react-scripts test"
   },
   "dependencies": {
     "react": "^16.8.4",
