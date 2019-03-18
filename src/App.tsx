@@ -4,8 +4,8 @@ import { Provider } from 'react-redux';
 
 import store from '@state/store';
 
-import HomePage from './views/pages/HomePage';
-import PostsPage from './views/pages/PostsPage';
+import HomePage from '@pages/HomePage';
+import PostsPage from '@pages/PostsPage';
 
 const Providers: SFC = ({ children }) => (
   <Provider store={store}>{Children.only(children)}</Provider>
