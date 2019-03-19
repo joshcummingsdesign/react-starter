@@ -1,9 +1,10 @@
 import React, { SFC, Children } from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { Switch, Route } from 'react-router-dom';
+import { ConnectedRouter as Router } from 'connected-react-router';
 
-import store, { persistor } from '@state/store';
+import store, { persistor, history } from '@state/store';
 
 import ProtectedRoute from '@components/route/ProtectedRoute';
 
@@ -29,7 +30,7 @@ const Routes = () => (
 
 const App = () => (
   <Providers>
-    <Router>
+    <Router history={history}>
       <Routes />
     </Router>
   </Providers>

@@ -1,16 +1,30 @@
 import auth from '@src/services/auth';
+import { history } from '@state/store';
 import { Thunk } from '@state/types/thunk';
-import { AuthActionName, FinishLoginAction } from './types';
-import { Auth0DecodedHash } from 'auth0-js';
+import { AuthActionName } from './types';
 
 export const login = (location?: string): Thunk => dispatch => {
   dispatch({ type: AuthActionName.START_LOGIN, location });
   auth.login();
 };
 
-export const finishLogin = (decodedHash: Auth0DecodedHash): FinishLoginAction => ({
-  type: AuthActionName.FINISH_LOGIN,
-  decodedHash
-});
+export const finishLogin = (): Thunk => async (dispatch, getState) => {
+  const location = getState().auth.location || '/';
+  try {
+    const decodedHash = await auth.parseHash();
+    if (decodedHash) {
+      dispatch({ type: AuthActionName.FINISH_LOGIN, decodedHash, location });
+      history.push(location);
+    } else {
+      history.push(location);
+    }
+  } catch (error) {
+    // dispatch({ type: AuthActionName.LOGIN_ERROR, error });
+    console.log(error);
+  }
+};
 
-export const logout = (): Thunk => () => console.log('logout');
+export const logout = (location?: string): Thunk => dispatch => {
+  dispatch({ type: AuthActionName.LOGOUT, location });
+  history.push(location || '/');
+};

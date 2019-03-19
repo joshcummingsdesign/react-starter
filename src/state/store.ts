@@ -1,4 +1,5 @@
 import { applyMiddleware, compose, createStore } from 'redux';
+import { createBrowserHistory } from 'history';
 import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import reduxThunk from 'redux-thunk';
@@ -12,7 +13,9 @@ const persistConfig = {
   storage
 };
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const history = createBrowserHistory();
+
+const persistedReducer = persistReducer(persistConfig, rootReducer(history));
 
 export const store = createStore(persistedReducer, composeEnhancers(applyMiddleware(reduxThunk)));
 

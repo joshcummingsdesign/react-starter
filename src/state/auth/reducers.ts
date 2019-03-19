@@ -23,6 +23,11 @@ const auth = (state: AuthState = initialState, action: AuthAction): AuthState =>
         }
       };
     }
+
+    case AuthActionName.LOGOUT: {
+      const { location } = action;
+      return { ...initialState, location };
+    }
   }
 
   return state;
