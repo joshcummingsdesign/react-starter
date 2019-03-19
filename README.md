@@ -39,6 +39,7 @@ An opinionated [React](https://github.com/facebook/react) starter project built 
     reducers.ts
     selectors.ts
     types.ts
+    index.ts
   types
     [name].ts
   utils
@@ -49,6 +50,11 @@ An opinionated [React](https://github.com/facebook/react) starter project built 
 views
   @styles
   @components
+    [name]
+      [name].tsx
+      [name].stories.tsx
+      [name]Container.tsx
+      index.ts
   @pages
 ```
 
