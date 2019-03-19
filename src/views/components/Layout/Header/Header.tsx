@@ -1,38 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { AuthConsumer } from '@components/auth/AuthProvider';
 
-interface Props {
-  isLoggedIn: boolean;
-  onLogin: () => void;
-  onLogout: () => void;
-}
-
-const Header = ({ isLoggedIn, onLogin, onLogout }: Props) => (
+const Header = () => (
   <header>
-    <ul>
-      <li>
-        <Link className='a' to='/'>
-          Home
-        </Link>
-      </li>
-      {isLoggedIn && (
-        <li>
-          <Link className='a' to='/profile'>
-            Profile
-          </Link>
-        </li>
+    <AuthConsumer>
+      {({ isLoggedIn, login, logout }) => (
+        <ul>
+          <li>
+            <Link className='a' to='/'>
+              Home
+            </Link>
+          </li>
+          {isLoggedIn && (
+            <li>
+              <Link className='a' to='/profile'>
+                Profile
+              </Link>
+            </li>
+          )}
+          {!isLoggedIn && (
+            <li>
+              <button onClick={login}>Login</button>
+            </li>
+          )}
+          {isLoggedIn && (
+            <li>
+              <button onClick={logout}>Logout</button>
+            </li>
+          )}
+        </ul>
       )}
-      {!isLoggedIn && (
-        <li>
-          <button onClick={onLogin}>Login</button>
-        </li>
-      )}
-      {isLoggedIn && (
-        <li>
-          <button onClick={onLogout}>Logout</button>
-        </li>
-      )}
-    </ul>
+    </AuthConsumer>
   </header>
 );
 

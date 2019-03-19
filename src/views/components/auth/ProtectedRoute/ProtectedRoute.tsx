@@ -1,10 +1,6 @@
 import React from 'react';
 import { Route, RouteProps, Redirect } from 'react-router-dom';
-
-import store from '@state/store';
-import { isAuthenticated } from '@src/state/auth/selectors';
-
-const isLoggedIn = () => isAuthenticated(store.getState().auth);
+import { AuthConsumer } from '../AuthProvider';
 
 /** Decorated route for protected pages.
  *
@@ -16,12 +12,14 @@ const isLoggedIn = () => isAuthenticated(store.getState().auth);
  * component uses `render` internally.
  */
 const ProtectedRoute = <T extends RouteProps>({ component: Component, ...rest }: T) => (
-  <Route
-    {...rest}
-    render={props =>
-      isLoggedIn() && Component ? <Component {...props} /> : <Redirect to='/callback' />
-    }
-  />
+  <AuthConsumer>
+    {({ isLoggedIn }) => (
+      <Route
+        {...rest}
+        render={props => (isLoggedIn && Component ? <Component {...props} /> : <Redirect to='/' />)}
+      />
+    )}
+  </AuthConsumer>
 );
 
 export default ProtectedRoute;

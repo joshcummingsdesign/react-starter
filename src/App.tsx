@@ -6,8 +6,8 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 
 import store, { persistor, history } from '@state/store';
 
-import AuthProvider from '@components/AuthProvider';
-import ProtectedRoute from '@components/route/ProtectedRoute';
+import AuthProvider from '@components/auth/AuthProvider';
+import ProtectedRoute from '@components/auth/ProtectedRoute';
 
 import HomePage from '@pages/HomePage';
 import AuthCallbackPage from '@pages/AuthCallbackPage';
@@ -22,17 +22,18 @@ const Providers: SFC = ({ children }) => (
 );
 
 const Routes = () => (
-  <Switch>
-    <Route exact path='/' component={HomePage} />
-    <Route exact path='/callback' component={AuthCallbackPage} />
-    <ProtectedRoute exact path='/profile' component={ProfilePage} />
-  </Switch>
+  <AuthProvider>
+    <Switch>
+      <Route exact path='/' component={HomePage} />
+      <Route exact path='/callback' component={AuthCallbackPage} />
+      <ProtectedRoute exact path='/profile' component={ProfilePage} />
+    </Switch>
+  </AuthProvider>
 );
 
 const App = () => (
   <Providers>
     <Router history={history}>
-      <AuthProvider />
       <Routes />
     </Router>
   </Providers>
