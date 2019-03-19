@@ -1,26 +1,24 @@
-import { ErrorState } from '.';
-import { RequestAction, RequestActionName } from '../types';
+import { RequestsState } from '.';
+import { RequestsAction, RequestsActionName } from './types';
 
-const error = (state = [] as ErrorState, action: RequestAction): ErrorState => {
+const requests = (state: RequestsState = [], action: RequestsAction): RequestsState => {
   switch (action.type) {
-    case RequestActionName.START_REQUEST: {
+    case RequestsActionName.START_REQUEST: {
       return [
         ...state.filter(request => request.requestAction.type !== action.requestAction.type),
         {
           requestId: action.requestId,
-          requestAction: action.requestAction,
-          error: null
+          requestAction: action.requestAction
         }
       ];
     }
 
-    case RequestActionName.FINISH_REQUEST: {
+    case RequestsActionName.FINISH_REQUEST: {
       if (action.error) {
         return state.map(request => {
           if (request.requestId !== action.requestId) {
             return request;
           }
-
           return {
             ...request,
             error: action.error
@@ -34,4 +32,4 @@ const error = (state = [] as ErrorState, action: RequestAction): ErrorState => {
   return state;
 };
 
-export default error;
+export default requests;

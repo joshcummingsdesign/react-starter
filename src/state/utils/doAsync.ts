@@ -1,5 +1,5 @@
 import { Thunk, Dispatch } from '@state/types/thunk';
-import { startRequest, finishRequest } from '@state/request/actions';
+import { startRequest, finishRequest } from '@state/requests/actions';
 import { RootAction } from '@state/root';
 
 let requestCounter = 0;
