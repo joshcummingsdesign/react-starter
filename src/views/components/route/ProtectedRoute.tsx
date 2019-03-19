@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, RouteProps, Redirect } from 'react-router-dom';
 
-import { store } from '@state/store';
+import store from '@state/store';
 import { isAuthenticated } from '@src/state/auth/selectors';
 
 const isLoggedIn = () => isAuthenticated(store.getState().auth);
