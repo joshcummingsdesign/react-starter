@@ -4,6 +4,6 @@ import { rootReducer } from '@state/root';
 
 const composeEnhancers = (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(rootReducer, composeEnhancers(applyMiddleware(reduxThunk)));
+export const store = createStore(rootReducer, composeEnhancers(applyMiddleware(reduxThunk)));
 
 export default store;

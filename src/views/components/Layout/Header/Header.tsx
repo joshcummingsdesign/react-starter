@@ -3,9 +3,10 @@ import { Link } from 'react-router-dom';
 
 interface Props {
   onLogin: () => void;
+  onLogout: () => void;
 }
 
-const Header = ({ onLogin }: Props) => (
+const Header = ({ onLogin, onLogout }: Props) => (
   <header>
     <ul>
       <li>
@@ -20,6 +21,9 @@ const Header = ({ onLogin }: Props) => (
       </li>
       <li>
         <button onClick={onLogin}>Login</button>
+      </li>
+      <li>
+        <button onClick={onLogout}>Logout</button>
       </li>
     </ul>
   </header>

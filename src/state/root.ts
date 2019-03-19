@@ -1,15 +1,19 @@
 import { combineReducers } from 'redux';
 
-import requests from '@state/requests/reducers';
-import { RequestsState } from '@state/requests';
-import { RequestsAction } from '@state/requests/types';
-
 import posts from '@state/posts/reducers';
 import { PostsState } from '@state/posts';
 import { PostsAction } from '@state/posts/types';
 
-export const rootReducer = combineReducers<RootState>({ requests, posts });
+import requests from '@state/requests/reducers';
+import { RequestsState } from '@state/requests';
+import { RequestsAction } from '@state/requests/types';
 
-export type RootState = { requests: RequestsState; posts: PostsState };
+import auth from '@state/auth/reducers';
+import { AuthState } from '@state/auth';
+import { AuthAction } from '@state/auth/types';
 
-export type RootAction = RequestsAction | PostsAction;
+export const rootReducer = combineReducers<RootState>({ posts, requests, auth });
+
+export type RootState = { posts: PostsState; requests: RequestsState; auth: AuthState };
+
+export type RootAction = PostsAction | RequestsAction | AuthAction;

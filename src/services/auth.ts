@@ -1,8 +1,8 @@
-import { WebAuth } from 'auth0-js';
+import { WebAuth, Auth0DecodedHash } from 'auth0-js';
 import config from '@src/config';
 
 class AuthService {
-  webAuth = new WebAuth({
+  private webAuth = new WebAuth({
     domain: config.auth0Domain,
     clientID: config.auth0ClientId,
     redirectUri: `${config.url}/callback`,
@@ -12,6 +12,18 @@ class AuthService {
 
   login() {
     this.webAuth.authorize();
+  }
+
+  parseHash() {
+    return new Promise<Auth0DecodedHash | null>((resolve, reject) => {
+      this.webAuth.parseHash((error, authResult) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(authResult);
+        }
+      });
+    });
   }
 }
 

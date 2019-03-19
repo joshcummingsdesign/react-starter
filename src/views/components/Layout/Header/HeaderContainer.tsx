@@ -1,15 +1,17 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ReduxComponent } from '@state/types/redux';
-import { login } from '@state/auth/actions';
+import { login, logout } from '@state/auth/actions';
 import Header from '.';
 
-class HeaderContainer extends ReduxComponent<{}> {
+class HeaderContainer extends ReduxComponent {
   render() {
-    return <Header onLogin={this.handleClick} />;
+    return <Header onLogin={this.handleLogin} onLogout={this.handleLogout} />;
   }
 
-  private handleClick = () => this.props.dispatch(login());
+  private handleLogin = () => this.props.dispatch(login('/profile'));
+
+  private handleLogout = () => this.props.dispatch(logout());
 }
 
 export default connect()(HeaderContainer);

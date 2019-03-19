@@ -9,7 +9,7 @@ export type ReduxProps<TStateProps, TOwnProps = {}> = TStateProps & TOwnProps & 
 
 export type SRC<TStateProps, TOwnProps = {}> = SFC<ReduxProps<TStateProps, TOwnProps>>;
 
-export class ReduxComponent<TStateProps, TOwnProps = {}, TState = {}> extends Component<
+export class ReduxComponent<TStateProps = {}, TOwnProps = {}, TState = {}> extends Component<
   ReduxProps<TStateProps, TOwnProps>,
   TState
 > {}
