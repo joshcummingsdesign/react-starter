@@ -34,7 +34,7 @@ An opinionated [React](https://github.com/facebook/react) starter project built 
   [name].ts
 
 @state
-  [feature]
+  [name]
     actions.ts
     reducers.ts
     selectors.ts
@@ -56,6 +56,8 @@ views
       [name]Container.tsx
       index.ts
   @pages
+    [name].tsx
+    index.ts
 ```
 
 ## TODO
