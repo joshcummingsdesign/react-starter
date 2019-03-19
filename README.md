@@ -53,8 +53,8 @@ views
 ## TODO
 * Routes / Authentication
 * i18n
-* Map errors to translation strings
+* Styles
 * Pagination
-* Storybook
 * Cypress
+* Map errors to translation strings
 * Transitions / animations

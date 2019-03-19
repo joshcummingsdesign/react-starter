@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from '@state/store';
 
 import HomePage from '@pages/HomePage';
-import PostsPage from '@pages/PostsPage';
+import ProfilePage from '@pages/ProfilePage';
 
 const Providers: SFC = ({ children }) => (
   <Provider store={store}>{Children.only(children)}</Provider>
@@ -14,7 +14,7 @@ const Providers: SFC = ({ children }) => (
 const Routes = () => (
   <Switch>
     <Route exact path='/' component={HomePage} />
-    <Route exact path='/posts' component={PostsPage} />
+    <Route exact path='/profile' component={ProfilePage} />
   </Switch>
 );
 

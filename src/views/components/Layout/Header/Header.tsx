@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-const Header = () => (
+interface Props {
+  onLogin: () => void;
+}
+
+const Header = ({ onLogin }: Props) => (
   <header>
     <ul>
       <li>
@@ -10,9 +14,12 @@ const Header = () => (
         </Link>
       </li>
       <li>
-        <Link className='a' to='/posts'>
-          Posts
+        <Link className='a' to='/profile'>
+          Profile
         </Link>
+      </li>
+      <li>
+        <button onClick={onLogin}>Login</button>
       </li>
     </ul>
   </header>
