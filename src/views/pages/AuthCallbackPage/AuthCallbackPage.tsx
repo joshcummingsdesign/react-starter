@@ -1,10 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { RootState } from '@src/state/root';
 import { ReduxComponent } from '@src/state/types/redux';
 import { login, finishLogin } from '@src/state/auth/actions';
 
 interface StateProps {
-  errorMessage: string;
+  errorMessage?: string;
 }
 
 class AuthCallbackPage extends ReduxComponent<StateProps> {
@@ -28,8 +29,8 @@ class AuthCallbackPage extends ReduxComponent<StateProps> {
   private handleRetry = () => this.props.dispatch(login());
 }
 
-const mapStateToProps = (): StateProps => ({
-  errorMessage: ''
+const mapStateToProps = ({ auth: { errorMessage } }: RootState): StateProps => ({
+  errorMessage
 });
 
 export default connect(mapStateToProps)(AuthCallbackPage);

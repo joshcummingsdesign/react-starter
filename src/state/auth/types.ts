@@ -5,7 +5,8 @@ export enum AuthActionName {
   LOGIN = 'LOGIN',
   START_SESSION = 'START_SESSION',
   CHECK_SESSION = 'CHECK_SESSION',
-  LOGOUT = 'LOGOUT'
+  LOGOUT = 'LOGOUT',
+  AUTH_ERROR = 'AUTH_ERROR'
 }
 
 export interface LoginAction extends Action<AuthActionName.LOGIN> {
@@ -15,6 +16,7 @@ export interface LoginAction extends Action<AuthActionName.LOGIN> {
 export interface StartSessionAction extends Action<AuthActionName.START_SESSION> {
   decodedHash: Auth0DecodedHash;
   expiresAt?: number;
+  expiresIn?: number;
 }
 
 export interface CheckSessionAction extends Action<AuthActionName.CHECK_SESSION> {
@@ -25,4 +27,13 @@ export interface LogoutAction extends Action<AuthActionName.LOGOUT> {
   location?: string;
 }
 
-export type AuthAction = LoginAction | StartSessionAction | CheckSessionAction | LogoutAction;
+export interface AuthErrorAction extends Action<AuthActionName.AUTH_ERROR> {
+  errorMessage: string;
+}
+
+export type AuthAction =
+  | LoginAction
+  | StartSessionAction
+  | CheckSessionAction
+  | LogoutAction
+  | AuthErrorAction;

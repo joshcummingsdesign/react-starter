@@ -6,8 +6,8 @@ import { ConnectedRouter as Router } from 'connected-react-router';
 
 import store, { persistor, history } from '@state/store';
 
+import AuthProvider from '@components/AuthProvider';
 import ProtectedRoute from '@components/route/ProtectedRoute';
-import AuthRefresh from '@components/auth/AuthRefresh';
 
 import HomePage from '@pages/HomePage';
 import AuthCallbackPage from '@pages/AuthCallbackPage';
@@ -32,8 +32,8 @@ const Routes = () => (
 const App = () => (
   <Providers>
     <Router history={history}>
+      <AuthProvider />
       <Routes />
-      <AuthRefresh />
     </Router>
   </Providers>
 );

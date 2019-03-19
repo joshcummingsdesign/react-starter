@@ -13,22 +13,31 @@ const auth = (state: AuthState = initialState, action: AuthAction): AuthState =>
     }
 
     case AuthActionName.START_SESSION: {
+      const { expiresAt, expiresIn } = action;
       return {
         ...state,
-        tokens: { ...action.decodedHash, expiresAt: action.expiresAt }
+        tokens: { ...action.decodedHash, expiresAt, expiresIn },
+        errorMessage: undefined
       };
     }
 
     case AuthActionName.CHECK_SESSION: {
+      const expiresIn = action.expiresIn || state.tokens.expiresIn;
       return {
         ...state,
-        tokens: { ...state.tokens, expiresIn: action.expiresIn || state.tokens.expiresIn }
+        tokens: { ...state.tokens, expiresIn },
+        errorMessage: undefined
       };
     }
 
     case AuthActionName.LOGOUT: {
       const { location } = action;
       return { ...initialState, location };
+    }
+
+    case AuthActionName.AUTH_ERROR: {
+      const { errorMessage } = action;
+      return { ...state, errorMessage };
     }
   }
 

@@ -6,4 +6,5 @@ export interface AuthState {
     expiresIn?: number;
   };
   location?: string;
+  errorMessage?: string;
 }

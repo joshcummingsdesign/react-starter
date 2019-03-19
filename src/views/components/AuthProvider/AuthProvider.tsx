@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { RootState } from '@src/state/root';
@@ -13,7 +13,7 @@ interface StateProps {
   expiresIn: number;
 }
 
-class AuthRefresh extends ReduxComponent<StateProps, OwnProps> {
+class AuthProvider extends ReduxComponent<StateProps, OwnProps> {
   componentDidMount() {
     this.checkSession();
   }
@@ -24,20 +24,20 @@ class AuthRefresh extends ReduxComponent<StateProps, OwnProps> {
     }
   }
 
+  render() {
+    return <Fragment />;
+  }
+
   private checkSession = () => {
     if (this.props.isLoggedIn) {
       this.props.dispatch(checkSession());
-      if (this.props.expiresIn === 0) {
+      if (this.props.expiresIn < 7141729) {
         this.renewSession();
       }
     }
   };
 
   private renewSession = () => this.props.dispatch(renewSession());
-
-  render() {
-    return <></>;
-  }
 }
 
 const mapStateToProps = ({ auth }: RootState): StateProps => ({
@@ -45,4 +45,4 @@ const mapStateToProps = ({ auth }: RootState): StateProps => ({
   expiresIn: getExpiryTime(auth)
 });
 
-export default withRouter(connect(mapStateToProps)(AuthRefresh));
+export default withRouter(connect(mapStateToProps)(AuthProvider));

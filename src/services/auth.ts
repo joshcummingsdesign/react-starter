@@ -15,24 +15,28 @@ class AuthService {
   }
 
   parseHash() {
-    return new Promise<Auth0DecodedHash | undefined>((resolve, reject) => {
-      this.webAuth.parseHash((error, authResult) => {
-        if (error) {
-          reject(new Error(error.error));
+    return new Promise<Auth0DecodedHash>((resolve, reject) => {
+      this.webAuth.parseHash((err, decodedHash) => {
+        if (decodedHash) {
+          resolve(decodedHash);
+        } else if (err) {
+          reject(new Error(err.error));
         } else {
-          resolve(authResult || undefined);
+          reject(new Error('no_hash_found'));
         }
       });
     });
   }
 
   checkSession() {
-    return new Promise<Auth0DecodedHash | undefined>((resolve, reject) => {
-      this.webAuth.checkSession({}, (error, authResult?: Auth0DecodedHash) => {
-        if (error) {
-          reject(new Error(error.error));
+    return new Promise<Auth0DecodedHash>((resolve, reject) => {
+      this.webAuth.checkSession({}, (err, decodedHash?: Auth0DecodedHash) => {
+        if (decodedHash) {
+          resolve(decodedHash);
+        } else if (err) {
+          reject(new Error(err.error));
         } else {
-          resolve(authResult);
+          reject(new Error('no_hash_found'));
         }
       });
     });

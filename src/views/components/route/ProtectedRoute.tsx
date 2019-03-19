@@ -18,7 +18,9 @@ const isLoggedIn = () => isAuthenticated(store.getState().auth);
 const ProtectedRoute = <T extends RouteProps>({ component: Component, ...rest }: T) => (
   <Route
     {...rest}
-    render={props => (isLoggedIn() && Component ? <Component {...props} /> : <Redirect to='/' />)}
+    render={props =>
+      isLoggedIn() && Component ? <Component {...props} /> : <Redirect to='/callback' />
+    }
   />
 );
 
