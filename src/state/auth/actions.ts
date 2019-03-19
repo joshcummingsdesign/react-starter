@@ -50,9 +50,9 @@ export const renewSession = (): Thunk => async dispatch => {
   }
 };
 
-export const logout = (location?: string): Thunk => (dispatch, getState) => {
+export const logout = (location?: string): Thunk => dispatch => {
   dispatch({ type: AuthActionName.LOGOUT, location });
-  history.push(location || getState().auth.location || '/');
+  auth.logout(location);
 };
 
 export const authError = (error: Error): AuthAction => ({

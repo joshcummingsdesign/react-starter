@@ -14,6 +14,12 @@ class AuthService {
     this.webAuth.authorize();
   }
 
+  logout(location?: string) {
+    this.webAuth.logout({
+      returnTo: `${config.url}/${location || ''}`
+    });
+  }
+
   parseHash() {
     return new Promise<Auth0DecodedHash>((resolve, reject) => {
       this.webAuth.parseHash((err, decodedHash) => {

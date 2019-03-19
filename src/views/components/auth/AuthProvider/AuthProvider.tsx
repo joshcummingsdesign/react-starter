@@ -13,6 +13,10 @@ interface StateProps {
   expiresIn: number;
 }
 
+interface State {
+  isLoading: boolean;
+}
+
 const defaultValue = {
   isLoggedIn: false,
   login: () => {},
@@ -23,7 +27,9 @@ const AuthContext = React.createContext<typeof defaultValue>(defaultValue);
 
 export const AuthConsumer = AuthContext.Consumer;
 
-class AuthProvider extends ReduxComponent<StateProps, OwnProps> {
+class AuthProvider extends ReduxComponent<StateProps, OwnProps, State> {
+  state = { isLoading: false };
+
   componentDidMount() {
     this.checkSession();
   }
@@ -35,17 +41,24 @@ class AuthProvider extends ReduxComponent<StateProps, OwnProps> {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, children } = this.props;
+    const { isLoading } = this.state;
     return (
       <AuthContext.Provider value={{ isLoggedIn, login: this.login, logout: this.logout }}>
-        {this.props.children}
+        {isLoading ? <p>Loading...</p> : children}
       </AuthContext.Provider>
     );
   }
 
-  private login = () => this.props.dispatch(login());
+  private login = () => {
+    this.setState({ isLoading: true });
+    this.props.dispatch(login());
+  };
 
-  private logout = () => this.props.dispatch(logout());
+  private logout = async () => {
+    this.setState({ isLoading: true });
+    this.props.dispatch(logout());
+  };
 
   private checkSession = () => {
     if (this.props.isLoggedIn) {
