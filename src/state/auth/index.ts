@@ -5,4 +5,5 @@ export interface AuthState {
     expiresAt?: number;
   };
   location?: string;
+  error?: Error;
 }

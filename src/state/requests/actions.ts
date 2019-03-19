@@ -1,4 +1,4 @@
-import { ReqeustError } from './types';
+import { RequestError } from './types';
 import { AsyncAction } from '@state/types/actions';
 import { RequestsAction, RequestsActionName } from './types';
 
@@ -11,7 +11,7 @@ export const startRequest = (
   requestAction
 });
 
-export const finishRequest = (requestId: number, error?: ReqeustError): RequestsAction => ({
+export const finishRequest = (requestId: number, error?: RequestError): RequestsAction => ({
   type: RequestsActionName.FINISH_REQUEST,
   requestId,
   error

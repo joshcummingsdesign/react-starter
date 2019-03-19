@@ -18,7 +18,7 @@ class AuthService {
     return new Promise<Auth0DecodedHash | null>((resolve, reject) => {
       this.webAuth.parseHash((error, authResult) => {
         if (error) {
-          reject(error);
+          reject(new Error(error.error));
         } else {
           resolve(authResult);
         }

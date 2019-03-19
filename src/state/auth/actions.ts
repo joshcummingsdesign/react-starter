@@ -19,12 +19,11 @@ export const finishLogin = (): Thunk => async (dispatch, getState) => {
       history.push(location);
     }
   } catch (error) {
-    // dispatch({ type: AuthActionName.LOGIN_ERROR, error });
-    console.log(error);
+    dispatch({ type: AuthActionName.LOGIN_ERROR, error });
   }
 };
 
-export const logout = (location?: string): Thunk => dispatch => {
+export const logout = (location?: string): Thunk => (dispatch, getState) => {
   dispatch({ type: AuthActionName.LOGOUT, location });
-  history.push(location || '/');
+  history.push(location || getState().auth.location || '/');
 };

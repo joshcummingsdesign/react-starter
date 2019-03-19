@@ -1,16 +1,36 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { RootState } from '@src/state/root';
 import { ReduxComponent } from '@src/state/types/redux';
-import { finishLogin } from '@src/state/auth/actions';
+import { login, finishLogin } from '@src/state/auth/actions';
 
-class AuthCallbackPage extends ReduxComponent {
+interface StateProps {
+  errorMessage: string;
+}
+
+class AuthCallbackPage extends ReduxComponent<StateProps> {
   componentDidMount() {
     this.props.dispatch(finishLogin());
   }
 
   render() {
+    const { errorMessage } = this.props;
+    if (errorMessage) {
+      return (
+        <div>
+          <p>The was an issue when logging in.</p>
+          <button onClick={this.handleRetry}>Try again</button>
+        </div>
+      );
+    }
     return <p>Loading...</p>;
   }
+
+  private handleRetry = () => this.props.dispatch(login());
 }
 
-export default connect()(AuthCallbackPage);
+const mapStateToProps = ({ auth: { error } }: RootState): StateProps => ({
+  errorMessage: error ? error.message : ''
+});
+
+export default connect(mapStateToProps)(AuthCallbackPage);

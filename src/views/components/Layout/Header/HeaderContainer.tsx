@@ -3,10 +3,19 @@ import { connect } from 'react-redux';
 import { ReduxComponent } from '@state/types/redux';
 import { login, logout } from '@state/auth/actions';
 import Header from '.';
+import { RootState } from '@src/state/root';
+import { isAuthenticated } from '@src/state/auth/selectors';
 
-class HeaderContainer extends ReduxComponent {
+interface StateProps {
+  isLoggedIn: boolean;
+}
+
+class HeaderContainer extends ReduxComponent<StateProps> {
   render() {
-    return <Header onLogin={this.handleLogin} onLogout={this.handleLogout} />;
+    const { isLoggedIn } = this.props;
+    return (
+      <Header isLoggedIn={isLoggedIn} onLogin={this.handleLogin} onLogout={this.handleLogout} />
+    );
   }
 
   private handleLogin = () => this.props.dispatch(login('/profile'));
@@ -14,4 +23,8 @@ class HeaderContainer extends ReduxComponent {
   private handleLogout = () => this.props.dispatch(logout());
 }
 
-export default connect()(HeaderContainer);
+const mapStateToProps = ({ auth }: RootState): StateProps => ({
+  isLoggedIn: isAuthenticated(auth)
+});
+
+export default connect(mapStateToProps)(HeaderContainer);

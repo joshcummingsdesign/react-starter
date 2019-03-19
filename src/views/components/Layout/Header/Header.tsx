@@ -2,11 +2,12 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 interface Props {
+  isLoggedIn: boolean;
   onLogin: () => void;
   onLogout: () => void;
 }
 
-const Header = ({ onLogin, onLogout }: Props) => (
+const Header = ({ isLoggedIn, onLogin, onLogout }: Props) => (
   <header>
     <ul>
       <li>
@@ -14,17 +15,23 @@ const Header = ({ onLogin, onLogout }: Props) => (
           Home
         </Link>
       </li>
-      <li>
-        <Link className='a' to='/profile'>
-          Profile
-        </Link>
-      </li>
-      <li>
-        <button onClick={onLogin}>Login</button>
-      </li>
-      <li>
-        <button onClick={onLogout}>Logout</button>
-      </li>
+      {isLoggedIn && (
+        <li>
+          <Link className='a' to='/profile'>
+            Profile
+          </Link>
+        </li>
+      )}
+      {!isLoggedIn && (
+        <li>
+          <button onClick={onLogin}>Login</button>
+        </li>
+      )}
+      {isLoggedIn && (
+        <li>
+          <button onClick={onLogout}>Logout</button>
+        </li>
+      )}
     </ul>
   </header>
 );

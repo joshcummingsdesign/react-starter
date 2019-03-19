@@ -1,8 +1,8 @@
 import { AsyncAction } from '@state/types/actions';
-import { ReqeustError } from './types';
+import { RequestError } from './types';
 
 export type RequestsState = {
   requestId: number;
   requestAction: AsyncAction<any, any>;
-  error?: ReqeustError;
+  error?: RequestError;
 }[];
