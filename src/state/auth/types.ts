@@ -2,26 +2,27 @@ import { Action } from 'redux';
 import { Auth0DecodedHash } from 'auth0-js';
 
 export enum AuthActionName {
-  START_LOGIN = 'START_LOGIN',
-  FINISH_LOGIN = 'FINISH_LOGIN',
-  LOGIN_ERROR = 'LOGIN_ERROR',
+  LOGIN = 'LOGIN',
+  START_SESSION = 'START_SESSION',
+  CHECK_SESSION = 'CHECK_SESSION',
   LOGOUT = 'LOGOUT'
 }
 
-export interface StartLoginAction extends Action<AuthActionName.START_LOGIN> {
+export interface LoginAction extends Action<AuthActionName.LOGIN> {
   location?: string;
 }
 
-export interface FinishLoginAction extends Action<AuthActionName.FINISH_LOGIN> {
+export interface StartSessionAction extends Action<AuthActionName.START_SESSION> {
   decodedHash: Auth0DecodedHash;
+  expiresAt?: number;
 }
 
-export interface LoginErrorAction extends Action<AuthActionName.LOGIN_ERROR> {
-  error: Error;
+export interface CheckSessionAction extends Action<AuthActionName.CHECK_SESSION> {
+  expiresIn?: number;
 }
 
 export interface LogoutAction extends Action<AuthActionName.LOGOUT> {
   location?: string;
 }
 
-export type AuthAction = StartLoginAction | FinishLoginAction | LoginErrorAction | LogoutAction;
+export type AuthAction = LoginAction | StartSessionAction | CheckSessionAction | LogoutAction;

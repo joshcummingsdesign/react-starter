@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { RootState } from '@src/state/root';
 import { ReduxComponent } from '@src/state/types/redux';
 import { login, finishLogin } from '@src/state/auth/actions';
 
@@ -29,8 +28,8 @@ class AuthCallbackPage extends ReduxComponent<StateProps> {
   private handleRetry = () => this.props.dispatch(login());
 }
 
-const mapStateToProps = ({ auth: { error } }: RootState): StateProps => ({
-  errorMessage: error ? error.message : ''
+const mapStateToProps = (): StateProps => ({
+  errorMessage: ''
 });
 
 export default connect(mapStateToProps)(AuthCallbackPage);

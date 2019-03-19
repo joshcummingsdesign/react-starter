@@ -7,25 +7,23 @@ const initialState = {
 
 const auth = (state: AuthState = initialState, action: AuthAction): AuthState => {
   switch (action.type) {
-    case AuthActionName.START_LOGIN: {
+    case AuthActionName.LOGIN: {
       const { location } = action;
       return { ...initialState, location };
     }
 
-    case AuthActionName.FINISH_LOGIN: {
-      const { accessToken, idToken, expiresIn } = action.decodedHash;
+    case AuthActionName.START_SESSION: {
       return {
         ...state,
-        tokens: {
-          accessToken,
-          idToken,
-          expiresAt: expiresIn && expiresIn * 1000 + new Date().getTime()
-        }
+        tokens: { ...action.decodedHash, expiresAt: action.expiresAt }
       };
     }
 
-    case AuthActionName.LOGIN_ERROR: {
-      return { ...state, error: action.error };
+    case AuthActionName.CHECK_SESSION: {
+      return {
+        ...state,
+        tokens: { ...state.tokens, expiresIn: action.expiresIn || state.tokens.expiresIn }
+      };
     }
 
     case AuthActionName.LOGOUT: {

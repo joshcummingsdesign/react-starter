@@ -3,7 +3,7 @@ export interface AuthState {
     accessToken?: string;
     idToken?: string;
     expiresAt?: number;
+    expiresIn?: number;
   };
   location?: string;
-  error?: Error;
 }

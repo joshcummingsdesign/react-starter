@@ -15,8 +15,20 @@ class AuthService {
   }
 
   parseHash() {
-    return new Promise<Auth0DecodedHash | null>((resolve, reject) => {
+    return new Promise<Auth0DecodedHash | undefined>((resolve, reject) => {
       this.webAuth.parseHash((error, authResult) => {
+        if (error) {
+          reject(new Error(error.error));
+        } else {
+          resolve(authResult || undefined);
+        }
+      });
+    });
+  }
+
+  checkSession() {
+    return new Promise<Auth0DecodedHash | undefined>((resolve, reject) => {
+      this.webAuth.checkSession({}, (error, authResult?: Auth0DecodedHash) => {
         if (error) {
           reject(new Error(error.error));
         } else {

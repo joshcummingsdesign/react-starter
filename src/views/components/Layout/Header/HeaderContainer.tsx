@@ -18,7 +18,7 @@ class HeaderContainer extends ReduxComponent<StateProps> {
     );
   }
 
-  private handleLogin = () => this.props.dispatch(login('/profile'));
+  private handleLogin = () => this.props.dispatch(login());
 
   private handleLogout = () => this.props.dispatch(logout());
 }
