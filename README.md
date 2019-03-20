@@ -1,6 +1,6 @@
 # React Starter
 
-An opinionated [React](https://github.com/facebook/react) starter project built with [Create React App](https://github.com/facebook/create-react-app).
+A pleasant little starter project bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Requirements
 
