@@ -11,7 +11,9 @@ interface Props {
 
 const PostListing = ({ posts, isLoading, errorMessage, onClick }: Props) => (
   <div className='h-mt-sm'>
-    <button onClick={onClick}>{isLoading ? 'Loading...' : 'Load Posts'}</button>
+    <button onClick={onClick} disabled={isLoading}>
+      {isLoading ? 'Loading...' : 'Load Posts'}
+    </button>
     {errorMessage && <p>{errorMessage}</p>}
     {posts.map(post => (
       <PostCard key={post.id} {...post} />

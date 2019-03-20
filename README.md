@@ -74,6 +74,7 @@ views
 ## TODO
 * Styles
 * i18n
+* Forms
 * Cypress
 * Pagination
 * Map errors to translation strings

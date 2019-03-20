@@ -8,7 +8,7 @@ class AuthService {
     redirectUri: `${config.url}/login/callback`,
     responseType: 'token id_token',
     audience: config.auth0Audience,
-    scope: 'openid profile read:posts offline_access'
+    scope: 'openid'
   });
 
   login() {
@@ -23,9 +23,9 @@ class AuthService {
 
   parseHash() {
     return new Promise<Auth0DecodedHash>((resolve, reject) => {
-      this.webAuth.parseHash((err, decodedHash) => {
-        if (decodedHash && decodedHash.accessToken && decodedHash.idToken) {
-          resolve(decodedHash);
+      this.webAuth.parseHash((err, res) => {
+        if (res && res.accessToken && res.idToken) {
+          resolve(res);
         } else if (err) {
           reject(new Error(err.error));
         } else {
@@ -37,15 +37,33 @@ class AuthService {
 
   checkSession() {
     return new Promise<Auth0DecodedHash>((resolve, reject) => {
-      this.webAuth.checkSession({}, (err, decodedHash) => {
-        if (decodedHash && decodedHash.accessToken && decodedHash.idToken) {
-          resolve(decodedHash);
+      this.webAuth.checkSession({}, (err, res) => {
+        if (res && res.accessToken && res.idToken) {
+          resolve(res);
         } else if (err) {
           reject(new Error(err.error));
         } else {
           reject(new Error('no_tokens_found'));
         }
       });
+    });
+  }
+
+  changePassword(email: string) {
+    return new Promise<string>((resolve, reject) => {
+      this.webAuth.changePassword(
+        {
+          connection: 'Username-Password-Authentication',
+          email
+        },
+        (err, res) => {
+          if (err) {
+            reject(new Error(err.code));
+          } else {
+            resolve(res);
+          }
+        }
+      );
     });
   }
 }
