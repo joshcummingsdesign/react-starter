@@ -17,7 +17,7 @@ interface State {
   isLoading: boolean;
 }
 
-const defaultValue = {
+export const defaultValue = {
   isAuthenticated: false,
   login: (location?: string) => console.log(location),
   logout: (location?: string) => console.log(location)

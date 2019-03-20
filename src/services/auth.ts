@@ -5,10 +5,10 @@ class AuthService {
   private webAuth = new WebAuth({
     domain: config.auth0Domain,
     clientID: config.auth0ClientId,
-    redirectUri: `${config.url}/callback`,
+    redirectUri: `${config.url}/login/callback`,
     responseType: 'token id_token',
     audience: config.auth0Audience,
-    scope: 'openid profile read:posts'
+    scope: 'openid profile read:posts offline_access'
   });
 
   login() {

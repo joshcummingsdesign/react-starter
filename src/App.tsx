@@ -13,6 +13,7 @@ import AuthCallbackPage from '@pages/auth/AuthCallbackPage';
 
 import HomePage from '@pages/HomePage';
 import ProfilePage from '@pages/ProfilePage';
+import PageNotFound from '@pages/PageNotFound';
 
 const Providers: SFC = ({ children }) => (
   <Provider store={store}>
@@ -27,8 +28,9 @@ const Routes = () => (
     <Switch>
       <Route exact path='/' component={HomePage} />
       <Route exact path='/login' component={LoginPage} />
-      <Route exact path='/callback' component={AuthCallbackPage} />
+      <Route exact path='/login/callback' component={AuthCallbackPage} />
       <ProtectedRoute exact path='/profile' component={ProfilePage} />
+      <Route component={PageNotFound} />
     </Switch>
   </AuthProvider>
 );

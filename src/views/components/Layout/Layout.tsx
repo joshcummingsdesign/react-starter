@@ -1,5 +1,5 @@
 import React, { SFC } from 'react';
-import Header from './Header';
+import Header from './Header/HeaderContainer';
 
 const Layout: SFC = ({ children }) => (
   <div className='container'>

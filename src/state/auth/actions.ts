@@ -16,8 +16,8 @@ export const handleAuth = (): Thunk => async (dispatch, getState) => {
     dispatch(setSession(decodedHash));
     history.push(location);
   } catch (error) {
+    console.error(error);
     history.push(location);
-    // show error modal
   }
 };
 

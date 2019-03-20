@@ -7,6 +7,16 @@ An opinionated [React](https://github.com/facebook/react) starter project built 
 - Yarn ^1.15.2
 - Node ^11.12.0
 
+## What You Get
+
+- [React 16](https://reactjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Redux](https://redux.js.org/)
+- [React Router 5](https://reacttraining.com/react-router/)
+- [Auth0](https://auth0.com/)
+- [Storybook](https://storybook.js.org/)
+- [Jest](https://jestjs.io/)
+
 ## Getting Started
 
 1.  Create a `.env` file in the root of the project with the following:
@@ -62,10 +72,9 @@ views
 ```
 
 ## TODO
-* Routes / Authentication
-* i18n
 * Styles
-* Pagination
+* i18n
 * Cypress
+* Pagination
 * Map errors to translation strings
 * Transitions / animations
