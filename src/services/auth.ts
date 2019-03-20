@@ -23,7 +23,7 @@ class AuthService {
 
   parseHash() {
     return new Promise<Auth0DecodedHash>((resolve, reject) => {
-      this.webAuth.parseHash((err, res) => {
+      this.webAuth.parseHash({}, (err, res) => {
         if (res && res.accessToken && res.idToken) {
           resolve(res);
         } else if (err) {
