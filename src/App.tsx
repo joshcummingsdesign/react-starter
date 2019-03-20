@@ -8,9 +8,10 @@ import store, { persistor, history } from '@state/store';
 
 import AuthProvider from '@components/auth/AuthProvider';
 import ProtectedRoute from '@components/auth/ProtectedRoute';
+import LoginPage from '@pages/auth/LoginPage';
+import AuthCallbackPage from '@pages/auth/AuthCallbackPage';
 
 import HomePage from '@pages/HomePage';
-import AuthCallbackPage from '@pages/AuthCallbackPage';
 import ProfilePage from '@pages/ProfilePage';
 
 const Providers: SFC = ({ children }) => (
@@ -25,6 +26,7 @@ const Routes = () => (
   <AuthProvider>
     <Switch>
       <Route exact path='/' component={HomePage} />
+      <Route exact path='/login' component={LoginPage} />
       <Route exact path='/callback' component={AuthCallbackPage} />
       <ProtectedRoute exact path='/profile' component={ProfilePage} />
     </Switch>

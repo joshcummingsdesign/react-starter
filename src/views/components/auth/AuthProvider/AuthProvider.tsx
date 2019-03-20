@@ -3,14 +3,14 @@ import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
 import { RootState } from '@src/state/root';
 import { ReduxComponent } from '@src/state/types/redux';
-import { isAuthenticated, getExpiryTime } from '@src/state/auth/selectors';
-import { login, logout, checkSession, renewSession } from '@src/state/auth/actions';
+import { isAuthenticated } from '@src/state/auth/selectors';
+import { login, logout, renewSession } from '@src/state/auth/actions';
 
 interface OwnProps extends RouteComponentProps {}
 
 interface StateProps {
   isLoggedIn: boolean;
-  expiresIn: number;
+  isAuthenticated: boolean;
 }
 
 interface State {
@@ -18,9 +18,9 @@ interface State {
 }
 
 const defaultValue = {
-  isLoggedIn: false,
-  login: () => {},
-  logout: () => {}
+  isAuthenticated: false,
+  login: (location?: string) => console.log(location),
+  logout: (location?: string) => console.log(location)
 };
 
 const AuthContext = React.createContext<typeof defaultValue>(defaultValue);
@@ -31,50 +31,43 @@ class AuthProvider extends ReduxComponent<StateProps, OwnProps, State> {
   state = { isLoading: false };
 
   componentDidMount() {
-    this.checkSession();
-  }
-
-  componentDidUpdate(prevProps: OwnProps) {
-    if (this.props.location !== prevProps.location) {
-      this.checkSession();
+    const { isLoggedIn, isAuthenticated } = this.props;
+    if (isLoggedIn) {
+      if (isAuthenticated) {
+        this.renewSession();
+      } else {
+        this.logout();
+      }
     }
   }
 
   render() {
-    const { isLoggedIn, children } = this.props;
+    const { isAuthenticated, children } = this.props;
     const { isLoading } = this.state;
+    const { login, logout } = this;
     return (
-      <AuthContext.Provider value={{ isLoggedIn, login: this.login, logout: this.logout }}>
+      <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
         {isLoading ? <p>Loading...</p> : children}
       </AuthContext.Provider>
     );
   }
 
-  private login = () => {
+  private login = (location?: string) => {
     this.setState({ isLoading: true });
-    this.props.dispatch(login());
+    this.props.dispatch(login(location));
   };
 
-  private logout = async () => {
+  private logout = (location?: string) => {
     this.setState({ isLoading: true });
-    this.props.dispatch(logout());
-  };
-
-  private checkSession = () => {
-    if (this.props.isLoggedIn) {
-      this.props.dispatch(checkSession());
-      if (this.props.expiresIn === 0) {
-        this.renewSession();
-      }
-    }
+    this.props.dispatch(logout(location));
   };
 
   private renewSession = () => this.props.dispatch(renewSession());
 }
 
 const mapStateToProps = ({ auth }: RootState): StateProps => ({
-  isLoggedIn: isAuthenticated(auth),
-  expiresIn: getExpiryTime(auth)
+  isLoggedIn: auth.isLoggedIn,
+  isAuthenticated: isAuthenticated(auth)
 });
 
 export default withRouter(connect(mapStateToProps)(AuthProvider));

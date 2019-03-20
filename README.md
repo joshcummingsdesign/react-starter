@@ -15,6 +15,7 @@ An opinionated [React](https://github.com/facebook/react) starter project built 
         REACT_APP_URL=http://localhost:8080
         REACT_APP_AUTH0_DOMAIN=[your auth0 domain]
         REACT_APP_AUTH0_CLIENT_ID=[your auth0 client ID]
+        REACT_APP_AUTH0_AUDIENCE=[your auth0 audience]
 
 2.  Install the dependencies
 

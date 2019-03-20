@@ -1,61 +1,57 @@
 import auth from '@src/services/auth';
 import { history } from '@state/store';
 import { Thunk } from '@state/types/thunk';
-import { AuthActionName, AuthAction } from './types';
+import { AuthActionName } from './types';
 import { Auth0DecodedHash } from 'auth0-js';
-import { getErrorMessage } from '../utils/asyncError';
 
 export const login = (location?: string): Thunk => dispatch => {
   dispatch({ type: AuthActionName.LOGIN, location });
   auth.login();
 };
 
-export const finishLogin = (): Thunk => async (dispatch, getState) => {
+export const handleAuth = (): Thunk => async (dispatch, getState) => {
   const location = getState().auth.location || '/';
   try {
     const decodedHash = await auth.parseHash();
-    dispatch(startSession(decodedHash));
+    dispatch(setSession(decodedHash));
     history.push(location);
   } catch (error) {
-    dispatch(authError(error));
+    history.push(location);
+    // show error modal
   }
 };
 
-export const startSession = (decodedHash: Auth0DecodedHash): AuthAction => {
-  const expiresAt = decodedHash.expiresIn && decodedHash.expiresIn * 1000 + new Date().getTime();
-  const expiresIn = expiresAt && expiresAt - Date.now();
-  return {
-    type: AuthActionName.START_SESSION,
-    decodedHash,
-    expiresAt,
-    expiresIn
-  };
-};
-
-export const checkSession = (): Thunk => (dispatch, getState) => {
-  const { expiresAt } = getState().auth.tokens;
-  const expiresIn = expiresAt && expiresAt - Date.now();
+export const setSession = (decodedHash: Auth0DecodedHash): Thunk => dispatch => {
+  const { expiresIn, accessToken, idToken } = decodedHash;
+  const expiresAt = expiresIn! * 1000 + new Date().getTime();
+  dispatch(scheduleRenewal(expiresAt));
   dispatch({
-    type: AuthActionName.CHECK_SESSION,
-    expiresIn
+    type: AuthActionName.SET_SESSION,
+    accessToken: accessToken!,
+    idToken: idToken!,
+    expiresAt
   });
 };
 
 export const renewSession = (): Thunk => async dispatch => {
   try {
     const decodedHash = await auth.checkSession();
-    dispatch(startSession(decodedHash));
+    dispatch(setSession(decodedHash));
   } catch (error) {
-    dispatch(login());
+    dispatch(logout());
+  }
+};
+
+let renewalTimer: NodeJS.Timeout;
+export const scheduleRenewal = (expiresAt: number): Thunk => dispatch => {
+  const timeout = expiresAt - Date.now();
+  if (timeout > 0) {
+    renewalTimer = setTimeout(() => dispatch(renewSession()), timeout);
   }
 };
 
 export const logout = (location?: string): Thunk => dispatch => {
-  dispatch({ type: AuthActionName.LOGOUT, location });
+  clearTimeout(renewalTimer);
+  dispatch({ type: AuthActionName.LOGOUT });
   auth.logout(location);
 };
-
-export const authError = (error: Error): AuthAction => ({
-  type: AuthActionName.AUTH_ERROR,
-  errorMessage: getErrorMessage(error)
-});

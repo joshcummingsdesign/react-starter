@@ -7,7 +7,8 @@ class AuthService {
     clientID: config.auth0ClientId,
     redirectUri: `${config.url}/callback`,
     responseType: 'token id_token',
-    scope: 'openid'
+    audience: config.auth0Audience,
+    scope: 'openid profile read:posts'
   });
 
   login() {
@@ -23,12 +24,12 @@ class AuthService {
   parseHash() {
     return new Promise<Auth0DecodedHash>((resolve, reject) => {
       this.webAuth.parseHash((err, decodedHash) => {
-        if (decodedHash) {
+        if (decodedHash && decodedHash.accessToken && decodedHash.idToken) {
           resolve(decodedHash);
         } else if (err) {
           reject(new Error(err.error));
         } else {
-          reject(new Error('no_hash_found'));
+          reject(new Error('no_tokens_found'));
         }
       });
     });
@@ -36,13 +37,13 @@ class AuthService {
 
   checkSession() {
     return new Promise<Auth0DecodedHash>((resolve, reject) => {
-      this.webAuth.checkSession({}, (err, decodedHash?: Auth0DecodedHash) => {
-        if (decodedHash) {
+      this.webAuth.checkSession({}, (err, decodedHash) => {
+        if (decodedHash && decodedHash.accessToken && decodedHash.idToken) {
           resolve(decodedHash);
         } else if (err) {
           reject(new Error(err.error));
         } else {
-          reject(new Error('no_hash_found'));
+          reject(new Error('no_tokens_found'));
         }
       });
     });

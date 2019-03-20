@@ -13,10 +13,12 @@ import { AuthConsumer } from '../AuthProvider';
  */
 const ProtectedRoute = <T extends RouteProps>({ component: Component, ...rest }: T) => (
   <AuthConsumer>
-    {({ isLoggedIn }) => (
+    {({ isAuthenticated }) => (
       <Route
         {...rest}
-        render={props => (isLoggedIn && Component ? <Component {...props} /> : <Redirect to='/' />)}
+        render={props =>
+          isAuthenticated && Component ? <Component {...props} /> : <Redirect to='/login' />
+        }
       />
     )}
   </AuthConsumer>
