@@ -6,8 +6,8 @@ class AuthService {
     domain: config.auth0Domain,
     clientID: config.auth0ClientId,
     redirectUri: `${config.url}/login/callback`,
-    responseType: 'token id_token',
     audience: config.auth0Audience,
+    responseType: 'token id_token',
     scope: 'openid'
   });
 
