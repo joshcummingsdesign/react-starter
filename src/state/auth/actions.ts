@@ -1,8 +1,8 @@
+import { Auth0DecodedHash } from 'auth0-js';
 import auth from '@src/services/auth';
 import { history } from '@state/store';
 import { Thunk } from '@state/types/thunk';
 import { AuthActionName } from './types';
-import { Auth0DecodedHash } from 'auth0-js';
 
 export const login = (location?: string): Thunk => dispatch => {
   dispatch({ type: AuthActionName.LOGIN, location });

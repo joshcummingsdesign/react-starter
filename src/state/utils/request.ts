@@ -5,14 +5,11 @@ import { RootAction } from '@state/root';
 let requestCounter = 0;
 
 /**
- * Dispatches actions when API requests start and end.
- *
+ * Asynchronous request action.
+ * Dispatches start and finish actions when a request is made.
  * Each request is tracked by a monotonically increasing identifier.
- *
- * @param thunk Async thunk
- * @param action Async action
  */
-export const doAsync = <R, A extends RootAction>(thunk: Thunk<R>, action: A): Thunk => async (
+export const request = <R, A extends RootAction>(thunk: Thunk<R>, action: A): Thunk => async (
   dispatch: Dispatch
 ) => {
   const requestId = requestCounter + 1;

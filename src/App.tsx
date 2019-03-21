@@ -18,28 +18,26 @@ import PageNotFound from '@pages/PageNotFound';
 const Providers: SFC = ({ children }) => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      {Children.only(children)}
+      <Router history={history}>
+        <AuthProvider>{Children.only(children)}</AuthProvider>
+      </Router>
     </PersistGate>
   </Provider>
 );
 
 const Routes = () => (
-  <AuthProvider>
-    <Switch>
-      <Route exact path='/' component={HomePage} />
-      <Route exact path='/login' component={LoginPage} />
-      <Route exact path='/login/callback' component={AuthCallbackPage} />
-      <ProtectedRoute exact path='/profile' component={ProfilePage} />
-      <Route component={PageNotFound} />
-    </Switch>
-  </AuthProvider>
+  <Switch>
+    <Route exact path='/' component={HomePage} />
+    <Route exact path='/login' component={LoginPage} />
+    <Route exact path='/login/callback' component={AuthCallbackPage} />
+    <ProtectedRoute exact path='/profile' component={ProfilePage} />
+    <Route component={PageNotFound} />
+  </Switch>
 );
 
 const App = () => (
   <Providers>
-    <Router history={history}>
-      <Routes />
-    </Router>
+    <Routes />
   </Providers>
 );
 

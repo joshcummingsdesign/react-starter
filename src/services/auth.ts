@@ -29,7 +29,7 @@ class AuthService {
         } else if (err) {
           reject(new Error(err.error));
         } else {
-          reject(new Error('no_tokens_found'));
+          reject(new Error('auth_tokens_not_found'));
         }
       });
     });
@@ -43,27 +43,22 @@ class AuthService {
         } else if (err) {
           reject(new Error(err.error));
         } else {
-          reject(new Error('no_tokens_found'));
+          reject(new Error('auth_tokens_not_found'));
         }
       });
     });
   }
 
   changePassword(email: string) {
+    const options = { email, connection: 'Username-Password-Authentication' };
     return new Promise<string>((resolve, reject) => {
-      this.webAuth.changePassword(
-        {
-          connection: 'Username-Password-Authentication',
-          email
-        },
-        (err, res) => {
-          if (err) {
-            reject(new Error(err.code));
-          } else {
-            resolve(res);
-          }
+      this.webAuth.changePassword(options, (err, res) => {
+        if (err) {
+          reject(new Error(err.code));
+        } else {
+          resolve(res);
         }
-      );
+      });
     });
   }
 }

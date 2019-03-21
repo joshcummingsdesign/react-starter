@@ -1,6 +1,6 @@
 import { RequestsState } from '.';
 import { RootAction } from '@state/root';
-import { getErrorMessage } from '../utils/asyncError';
+import { getErrorMessage } from '../utils/errorHelpers';
 
 /**
  * Retrieve loading state by action name.
