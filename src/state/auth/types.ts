@@ -16,6 +16,8 @@ export interface SetSessionAction extends Action<AuthActionName.SET_SESSION> {
   idToken: string;
 }
 
-export interface LogoutAction extends Action<AuthActionName.LOGOUT> {}
+export interface LogoutAction extends Action<AuthActionName.LOGOUT> {
+  location?: string;
+}
 
 export type AuthAction = LoginAction | SetSessionAction | LogoutAction;

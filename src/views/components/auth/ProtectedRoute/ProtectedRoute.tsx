@@ -1,6 +1,6 @@
 import React from 'react';
-import { Route, RouteProps, Redirect } from 'react-router-dom';
-import { AuthConsumer } from '../AuthProvider';
+import { Route, RouteProps } from 'react-router-dom';
+import { AuthConsumer } from '@components/auth/AuthProvider';
 
 /** Decorated route for protected pages.
  *
@@ -13,12 +13,16 @@ import { AuthConsumer } from '../AuthProvider';
  */
 const ProtectedRoute = <T extends RouteProps>({ component: Component, ...rest }: T) => (
   <AuthConsumer>
-    {({ isAuthenticated }) => (
+    {({ isAuthenticated, login }) => (
       <Route
         {...rest}
-        render={props =>
-          isAuthenticated && Component ? <Component {...props} /> : <Redirect to='/login' />
-        }
+        render={props => {
+          if (isAuthenticated && Component) {
+            return <Component {...props} />;
+          } else {
+            login(props.location.pathname);
+          }
+        }}
       />
     )}
   </AuthConsumer>

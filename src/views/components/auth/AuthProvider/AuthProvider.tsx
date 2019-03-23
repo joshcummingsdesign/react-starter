@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { withRouter, RouteComponentProps } from 'react-router';
-import { RootState } from '@src/state/root';
-import { ReduxComponent } from '@src/state/types/redux';
-import { isAuthenticated } from '@src/state/auth/selectors';
-import { login, logout, renewSession } from '@src/state/auth/actions';
+import { RootState } from '@state/root';
+import { ReduxComponent } from '@state/types/redux';
+import { isAuthenticated } from '@state/auth/selectors';
+import { login, logout, renewSession } from '@state/auth/actions';
 
 interface OwnProps extends RouteComponentProps {}
 
@@ -27,7 +27,7 @@ const AuthContext = React.createContext<typeof defaultValue>(defaultValue);
 
 export const AuthConsumer = AuthContext.Consumer;
 
-class AuthProvider extends ReduxComponent<StateProps, OwnProps, State> {
+class AuthProvider extends ReduxComponent<OwnProps, StateProps, State> {
   state = { isLoading: false };
 
   componentDidMount() {

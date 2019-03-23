@@ -9,7 +9,7 @@ let requestCounter = 0;
  * Dispatches start and finish actions when a request is made.
  * Each request is tracked by a monotonically increasing identifier.
  */
-export const request = <R, A extends RootAction>(thunk: Thunk<R>, action: A): Thunk => async (
+export const request = <R, A extends RootAction>(thunk: Thunk<R>, action: A): Thunk<any> => async (
   dispatch: Dispatch
 ) => {
   const requestId = requestCounter + 1;
@@ -21,8 +21,10 @@ export const request = <R, A extends RootAction>(thunk: Thunk<R>, action: A): Th
     const result = await dispatch(thunk);
     dispatch({ ...action, result });
     dispatch(finishRequest(requestId));
+    return result;
   } catch (error) {
     dispatch({ ...action, error });
     dispatch(finishRequest(requestId, error));
+    throw error;
   }
 };

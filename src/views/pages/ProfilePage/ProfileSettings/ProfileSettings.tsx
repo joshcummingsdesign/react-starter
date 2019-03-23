@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import auth from '@src/services/auth';
+import auth from '@services/auth';
 
 interface State {
   isLoading: boolean;

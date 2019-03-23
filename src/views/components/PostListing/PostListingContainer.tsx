@@ -14,7 +14,7 @@ interface StateProps {
   errorMessage: string;
 }
 
-class PostsContainer extends ReduxComponent<StateProps> {
+class PostsContainer extends ReduxComponent<{}, StateProps> {
   render() {
     const { posts, isLoading, errorMessage } = this.props;
     return (

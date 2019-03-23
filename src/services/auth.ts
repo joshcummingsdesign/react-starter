@@ -2,10 +2,12 @@ import { WebAuth, Auth0DecodedHash } from 'auth0-js';
 import config from '@src/config';
 
 class AuthService {
+  callbackUrl = `${config.url}/callback`;
+
   private webAuth = new WebAuth({
     domain: config.auth0Domain,
     clientID: config.auth0ClientId,
-    redirectUri: `${config.url}/login/callback`,
+    redirectUri: this.callbackUrl,
     audience: config.auth0Audience,
     responseType: 'token id_token',
     scope: 'openid'
@@ -15,9 +17,9 @@ class AuthService {
     this.webAuth.authorize();
   }
 
-  logout(location?: string) {
+  logout() {
     this.webAuth.logout({
-      returnTo: `${config.url}/${location || ''}`
+      returnTo: this.callbackUrl
     });
   }
 

@@ -23,7 +23,8 @@ const auth = (state = initialState, action: AuthAction): AuthState => {
     }
 
     case AuthActionName.LOGOUT: {
-      return initialState;
+      const { location } = action;
+      return { ...initialState, location };
     }
   }
 

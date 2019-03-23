@@ -1,15 +1,16 @@
-import { Component, SFC } from 'react';
+import { SFC, Component } from 'react';
 import { Dispatch } from './thunk';
 
 export interface DispatchProp {
   dispatch: Dispatch;
 }
 
-export type ReduxProps<TStateProps, TOwnProps = {}> = TStateProps & TOwnProps & DispatchProp;
+export type ReduxProps<TOwnProps = {}, TStateProps = {}> = TOwnProps & TStateProps & DispatchProp;
 
-export type SRC<TStateProps, TOwnProps = {}> = SFC<ReduxProps<TStateProps, TOwnProps>>;
+// Stateless Redux Component
+export type SRC<TOwnProps = {}, TStateProps = {}> = SFC<ReduxProps<TOwnProps, TStateProps>>;
 
-export class ReduxComponent<TStateProps = {}, TOwnProps = {}, TState = {}> extends Component<
-  ReduxProps<TStateProps, TOwnProps>,
+export class ReduxComponent<TOwnProps = {}, TStateProps = {}, TState = {}> extends Component<
+  ReduxProps<TOwnProps, TStateProps>,
   TState
 > {}

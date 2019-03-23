@@ -1,5 +1,5 @@
 import { Auth0DecodedHash } from 'auth0-js';
-import auth from '@src/services/auth';
+import auth from '@services/auth';
 import { history } from '@state/store';
 import { Thunk } from '@state/types/thunk';
 import { AuthActionName } from './types';
@@ -52,6 +52,6 @@ export const scheduleRenewal = (expiresAt: number): Thunk => dispatch => {
 
 export const logout = (location?: string): Thunk => dispatch => {
   clearTimeout(renewalTimer);
-  dispatch({ type: AuthActionName.LOGOUT });
-  auth.logout(location);
+  dispatch({ type: AuthActionName.LOGOUT, location });
+  auth.logout();
 };
