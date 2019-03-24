@@ -26,7 +26,7 @@ class AuthService {
   parseHash() {
     return new Promise<Auth0DecodedHash>((resolve, reject) => {
       this.webAuth.parseHash({}, (err, res) => {
-        if (res && res.accessToken && res.idToken) {
+        if (res && res.accessToken && res.idToken && res.expiresIn) {
           resolve(res);
         } else if (err) {
           reject(new Error(err.error));
@@ -40,7 +40,7 @@ class AuthService {
   checkSession() {
     return new Promise<Auth0DecodedHash>((resolve, reject) => {
       this.webAuth.checkSession({}, (err, res) => {
-        if (res && res.accessToken && res.idToken) {
+        if (res && res.accessToken && res.idToken && res.expiresIn) {
           resolve(res);
         } else if (err) {
           reject(new Error(err.error));

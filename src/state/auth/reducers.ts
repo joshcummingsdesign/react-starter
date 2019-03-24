@@ -6,7 +6,7 @@ const initialState: AuthState = {
   tokens: {}
 };
 
-const auth = (state = initialState, action: AuthAction): AuthState => {
+const auth = (state: AuthState = initialState, action: AuthAction): AuthState => {
   switch (action.type) {
     case AuthActionName.LOGIN: {
       const { location } = action;
