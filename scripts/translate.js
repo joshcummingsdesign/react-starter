@@ -5,7 +5,7 @@ const globSync = require('glob').sync;
 const mkdirpSync = require('mkdirp').sync;
 const rimrafSync = require('rimraf').sync;
 const babel = require('@babel/core');
-const ReactIntlPlugin = require('babel-plugin-react-intl').default;
+const reactIntl = require('babel-plugin-react-intl').default;
 const chalk = require('chalk');
 const _ = require('lodash');
 
@@ -27,7 +27,7 @@ const allMessages = {};
 globSync(MESSAGE_PATTERN).map(filename => {
   const result = babel.transformFileSync(filename, {
     presets: ['react-app'],
-    plugins: [ReactIntlPlugin]
+    plugins: [reactIntl]
   });
   const { messages } = result.metadata['react-intl'];
   if (messages.length) {
