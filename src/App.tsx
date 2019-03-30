@@ -10,6 +10,8 @@ import AuthProvider from '@components/auth/AuthProvider';
 import ProtectedRoute from '@components/auth/ProtectedRoute';
 import AuthCallbackPage from '@pages/auth/AuthCallbackPage';
 
+import LocaleProvider from '@components/locale/LocaleProvider';
+
 import HomePage from '@pages/HomePage';
 import ProfilePage from '@pages/ProfilePage';
 import PageNotFound from '@pages/PageNotFound';
@@ -17,9 +19,11 @@ import PageNotFound from '@pages/PageNotFound';
 const Providers: SFC = ({ children }) => (
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <Router history={history}>
-        <AuthProvider>{Children.only(children)}</AuthProvider>
-      </Router>
+      <LocaleProvider>
+        <Router history={history}>
+          <AuthProvider>{Children.only(children)}</AuthProvider>
+        </Router>
+      </LocaleProvider>
     </PersistGate>
   </Provider>
 );

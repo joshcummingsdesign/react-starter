@@ -3,10 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "PORT=8080 react-app-rewired start",
+    "start": "yarn translate && PORT=8080 react-app-rewired start",
     "storybook": "start-storybook -p 9009 -s public",
     "test": "react-app-rewired test",
-    "build": "react-app-rewired build"
+    "translate": "babel-node ./scripts/translate.js",
+    "build": "yarn translate && react-app-rewired build"
   },
   "dependencies": {
     "auth0-js": "^9.10.1",
@@ -14,6 +15,7 @@
     "connected-react-router": "^6.3.2",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",
+    "react-intl": "^2.8.0",
     "react-redux": "^6.0.1",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
@@ -21,7 +23,7 @@
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.3.4",
+    "@babel/core": "^7.4.0",
     "@storybook/addon-actions": "^5.0.3",
     "@storybook/react": "^5.0.3",
     "@types/auth0-js": "^8.11.11",
@@ -29,16 +31,22 @@
     "@types/node": "^11.11.3",
     "@types/react": "^16.8.8",
     "@types/react-dom": "^16.8.2",
+    "@types/react-intl": "^2.3.17",
     "@types/react-redux": "^7.0.4",
     "@types/react-router-dom": "^4.3.1",
     "@types/storybook__addon-actions": "^3.4.2",
     "@types/storybook__react": "^4.0.1",
+    "babel-cli": "^6.26.0",
     "babel-loader": "^8.0.5",
+    "babel-plugin-react-intl": "^3.0.1",
+    "babel-preset-react-app": "^7.0.2",
+    "chalk": "^2.4.2",
     "husky": "^1.3.1",
     "lint-staged": "^8.1.5",
     "prettier": "^1.16.4",
     "react-app-rewired": "^2.1.1",
     "react-scripts": "^2.1.8",
+    "rimraf": "^2.6.3",
     "typescript": "^3.3.3333",
     "utility-types": "^3.4.1"
   },
@@ -53,7 +61,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "node ./scripts/translateWarn.js && lint-staged"
     }
   },
   "browserslist": [

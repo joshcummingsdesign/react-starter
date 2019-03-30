@@ -3,7 +3,7 @@ import { AuthAction, AuthActionName } from './types';
 
 const initialState: AuthState = {
   isLoggedIn: false,
-  tokens: {}
+  tokens: null
 };
 
 const auth = (state: AuthState = initialState, action: AuthAction): AuthState => {
