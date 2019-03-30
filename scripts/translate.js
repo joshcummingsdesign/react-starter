@@ -3,7 +3,7 @@ process.env.NODE_ENV = 'development';
 const fs = require('fs');
 const globSync = require('glob').sync;
 const mkdirpSync = require('mkdirp').sync;
-const rimraf = require('rimraf');
+const rimrafSync = require('rimraf').sync;
 const babel = require('@babel/core');
 const ReactIntlPlugin = require('babel-plugin-react-intl').default;
 const chalk = require('chalk');
@@ -20,7 +20,7 @@ const FILE_PATTERN = `${LOCALE_DIR}/*.json`;
 mkdirpSync(DATA_DIR);
 
 // Delete data.json file
-rimraf.sync(DATA_FILE);
+rimrafSync(DATA_FILE);
 
 // Aggregate default messages
 const allMessages = {};
