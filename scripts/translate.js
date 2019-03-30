@@ -16,7 +16,7 @@ const EN_FILE = `${LOCALE_DIR}/en.json`;
 const MESSAGE_PATTERN = './src/**/*.{ts,tsx}';
 const FILE_PATTERN = `${LOCALE_DIR}/*.json`;
 
-// Create localData directory
+// Create localeData directory
 mkdirpSync(DATA_DIR);
 
 // Delete data.json file
