@@ -2,7 +2,8 @@ import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
 import { AuthConsumer } from '@components/auth/AuthProvider';
 
-/** Decorated route for protected pages.
+/**
+ * Decorated route for protected pages.
  *
  * This component takes the same props as Route and conditionally renders the page
  * component depending on user authentication state. Unauthenticated renders are

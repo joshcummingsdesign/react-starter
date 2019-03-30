@@ -10,6 +10,8 @@
     "build": "yarn translate && react-app-rewired build"
   },
   "dependencies": {
+    "@casl/ability": "^3.0.2",
+    "@casl/react": "^1.0.3",
     "auth0-js": "^9.10.1",
     "axios": "^0.18.0",
     "connected-react-router": "^6.3.2",

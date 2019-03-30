@@ -81,7 +81,6 @@ views
 ```
 
 ## TODO
-* User permissions
 * Styles
 * Forms
 * Cypress

@@ -54,5 +54,5 @@ const mergedTranslations = globSync(FILE_PATTERN)
     return Object.assign({}, acc, localeObj);
   }, {});
 
-// Write data from all regions into a data.json file
+// Write data from all regions to a data.json file
 fs.writeFileSync(DATA_FILE, JSON.stringify(mergedTranslations, null, 2) + '\n');
