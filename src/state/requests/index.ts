@@ -1,5 +1,5 @@
-import { AsyncAction } from '@state/types/actions';
-import { RequestError } from './types';
+import { AsyncAction } from 'state/types/actions';
+import { RequestError } from 'utils/error';
 
 export type RequestsState = {
   requestId: number;

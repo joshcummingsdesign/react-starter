@@ -1,0 +1,11 @@
+{
+  "errors.server": "Request failed. Please try again.",
+  "test.message": "This is a test message in japanese.",
+  "footer.copyright": "React Starter",
+  "header.heading": "React Starter",
+  "posts.heading": "Posts",
+  "posts.loading": "Loading…",
+  "homePage.heading": "Blog",
+  "pageNotFound.heading": "Page Not Found",
+  "pageNotFound.link": "Back"
+}

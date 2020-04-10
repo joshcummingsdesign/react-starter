@@ -1,14 +1,13 @@
 import axios, { AxiosPromise } from 'axios';
-import config from '@src/config';
-import { Post } from '@models/posts';
+import { Post } from 'models/Post';
 
 class ApiService {
-  request = axios.create({
-    baseURL: config.apiUrl
+  private request = axios.create({
+    baseURL: 'https://jsonplaceholder.typicode.com',
   });
 
   getPosts(): AxiosPromise<Post[]> {
-    return this.request('/posts?_start0&_limit=5');
+    return this.request.get('/posts');
   }
 }
 

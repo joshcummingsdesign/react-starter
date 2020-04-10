@@ -12,7 +12,7 @@ const _ = require('lodash');
 const LOCALE_DIR = './src/locale';
 const DATA_DIR = `${LOCALE_DIR}/localeData`;
 const DATA_FILE = `${DATA_DIR}/data.json`;
-const EN_FILE = `${LOCALE_DIR}/en.json`;
+const EN_FILE = `${LOCALE_DIR}/en-US.json`;
 const MESSAGE_PATTERN = './src/**/*.{ts,tsx}';
 const FILE_PATTERN = `${LOCALE_DIR}/*.json`;
 

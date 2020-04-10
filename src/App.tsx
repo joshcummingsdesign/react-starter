@@ -1,38 +1,24 @@
-import React, { SFC, Children } from 'react';
+import React, { FC } from 'react';
 import { Provider } from 'react-redux';
-import { PersistGate } from 'redux-persist/integration/react';
-import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter as Router } from 'connected-react-router';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
-import store, { persistor, history } from '@state/store';
+import { store } from 'state/store';
+import LocaleProvider from 'views/components/providers/LocaleProvider';
 
-import AuthProvider from '@components/auth/AuthProvider';
-import ProtectedRoute from '@components/auth/ProtectedRoute';
-import AuthCallbackPage from '@pages/auth/AuthCallbackPage';
+import HomePage from 'views/pages/HomePage/HomePageContainer';
+import PageNotFound from 'views/pages/PageNotFound/PageNotFoundContainer';
 
-import LocaleProvider from '@components/locale/LocaleProvider';
-
-import HomePage from '@pages/HomePage';
-import ProfilePage from '@pages/ProfilePage';
-import PageNotFound from '@pages/PageNotFound';
-
-const Providers: SFC = ({ children }) => (
+const Providers: FC = ({ children }) => (
   <Provider store={store}>
-    <PersistGate loading={null} persistor={persistor}>
-      <LocaleProvider>
-        <Router history={history}>
-          <AuthProvider>{Children.only(children)}</AuthProvider>
-        </Router>
-      </LocaleProvider>
-    </PersistGate>
+    <LocaleProvider>
+      <Router>{children}</Router>
+    </LocaleProvider>
   </Provider>
 );
 
-const Routes = () => (
+export const Routes = () => (
   <Switch>
     <Route exact path='/' component={HomePage} />
-    <Route exact path='/callback' component={AuthCallbackPage} />
-    <ProtectedRoute exact path='/profile' component={ProfilePage} />
     <Route component={PageNotFound} />
   </Switch>
 );

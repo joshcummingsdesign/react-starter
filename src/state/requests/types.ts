@@ -1,12 +1,10 @@
 import { Action } from 'redux';
-import { AxiosError } from 'axios';
-import { AsyncAction } from '@state/types/actions';
-
-export type RequestError = AxiosError | Error;
+import { AsyncAction } from 'state/types/actions';
+import { RequestError } from 'utils/error';
 
 export enum RequestsActionName {
   START_REQUEST = 'START_REQUEST',
-  FINISH_REQUEST = 'FINISH_REQUEST'
+  FINISH_REQUEST = 'FINISH_REQUEST',
 }
 
 export interface StartRequestAction extends Action<RequestsActionName.START_REQUEST> {

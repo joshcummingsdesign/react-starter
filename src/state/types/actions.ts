@@ -1,5 +1,5 @@
 import { Action } from 'redux';
-import { RequestError } from '@state/requests/types';
+import { RequestError } from 'utils/error';
 
 export interface AsyncAction<T = any, R = undefined> extends Action<T> {
   result?: R;

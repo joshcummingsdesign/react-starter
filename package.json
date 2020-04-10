@@ -1,75 +1,78 @@
 {
   "name": "react-starter",
-  "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "yarn translate && PORT=8080 react-app-rewired start",
-    "storybook": "start-storybook -p 9009 -s public",
-    "test": "react-app-rewired test",
     "translate": "babel-node ./scripts/translate.js",
-    "build": "yarn translate && react-app-rewired build"
+    "start": "yarn translate && react-scripts start",
+    "build": "yarn translate && react-scripts build",
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
+    "serve": "serve -n -s build",
+    "storybook": "start-storybook -p 9009 -s public",
+    "security": "yarn audit --groups dependencies"
   },
   "dependencies": {
-    "@casl/ability": "^3.0.2",
-    "@casl/react": "^1.0.3",
-    "auth0-js": "^9.10.1",
-    "axios": "^0.18.0",
-    "connected-react-router": "^6.3.2",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
-    "react-intl": "^2.8.0",
-    "react-redux": "^6.0.1",
-    "react-router-dom": "^5.0.0",
-    "redux": "^4.0.1",
-    "redux-persist": "^5.10.0",
+    "axios": "^0.19.2",
+    "history": "^4.10.1",
+    "lodash": "^4.17.15",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-intl": "^4.3.1",
+    "react-redux": "^7.2.0",
+    "react-router-dom": "^5.1.2",
+    "redux": "^4.0.5",
     "redux-thunk": "^2.3.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.4.0",
-    "@storybook/addon-actions": "^5.0.3",
-    "@storybook/react": "^5.0.3",
-    "@types/auth0-js": "^8.11.11",
-    "@types/jest": "^24.0.11",
-    "@types/node": "^11.11.3",
-    "@types/react": "^16.8.8",
-    "@types/react-dom": "^16.8.2",
-    "@types/react-intl": "^2.3.17",
-    "@types/react-redux": "^7.0.4",
-    "@types/react-router-dom": "^4.3.1",
-    "@types/storybook__addon-actions": "^3.4.2",
-    "@types/storybook__react": "^4.0.1",
+    "@storybook/addon-actions": "^5.3.18",
+    "@storybook/addon-links": "^5.3.18",
+    "@storybook/addons": "^5.3.18",
+    "@storybook/preset-create-react-app": "^2.1.1",
+    "@storybook/react": "^5.3.18",
+    "@testing-library/jest-dom": "^5.3.0",
+    "@testing-library/react": "^10.0.2",
+    "@testing-library/user-event": "^10.0.1",
+    "@types/jest": "^25.2.1",
+    "@types/lodash": "^4.14.149",
+    "@types/node": "^13.11.0",
+    "@types/react": "^16.9.32",
+    "@types/react-dom": "^16.9.6",
+    "@types/react-redux": "^7.1.7",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/redux-mock-store": "^1.0.2",
     "babel-cli": "^6.26.0",
-    "babel-loader": "^8.0.5",
-    "babel-plugin-react-intl": "^3.0.1",
-    "babel-preset-react-app": "^7.0.2",
-    "chalk": "^2.4.2",
-    "husky": "^1.3.1",
-    "lint-staged": "^8.1.5",
-    "prettier": "^1.16.4",
-    "react-app-rewired": "^2.1.1",
-    "react-scripts": "^2.1.8",
-    "rimraf": "^2.6.3",
-    "typescript": "^3.3.3333",
-    "utility-types": "^3.4.1"
+    "babel-plugin-react-intl": "^7.1.0",
+    "husky": "^4.2.3",
+    "jest-environment-jsdom-sixteen": "^1.0.3",
+    "lint-staged": "^10.1.2",
+    "prettier": "^2.0.4",
+    "react-scripts": "3.4.1",
+    "redux-mock-store": "^1.5.4",
+    "serve": "^11.3.0",
+    "typescript": "~3.7.2"
   },
   "eslintConfig": {
     "extends": "react-app"
   },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
   "lint-staged": {
-    "src/**/*.{ts,tsx,js,json}": [
-      "prettier --write",
-      "git add"
+    "./**/*.{ts,tsx,js,json}": [
+      "prettier --write"
     ]
   },
   "husky": {
     "hooks": {
       "pre-commit": "node ./scripts/translateWarn.js && lint-staged"
     }
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  }
 }

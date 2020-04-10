@@ -1,6 +1,6 @@
-import { RequestError } from './types';
-import { AsyncAction } from '@state/types/actions';
+import { AsyncAction } from 'state/types/actions';
 import { RequestsAction, RequestsActionName } from './types';
+import { RequestError } from 'utils/error';
 
 export const startRequest = (
   requestId: number,
@@ -8,11 +8,11 @@ export const startRequest = (
 ): RequestsAction => ({
   type: RequestsActionName.START_REQUEST,
   requestId,
-  requestAction
+  requestAction,
 });
 
 export const finishRequest = (requestId: number, error?: RequestError): RequestsAction => ({
   type: RequestsActionName.FINISH_REQUEST,
   requestId,
-  error
+  error,
 });

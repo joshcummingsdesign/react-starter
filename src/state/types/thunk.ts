@@ -1,5 +1,5 @@
 import { ThunkAction, ThunkDispatch } from 'redux-thunk';
-import { RootState, RootAction } from '@state/root';
+import { RootState, RootAction } from 'state/root';
 
 type ThunkArg = undefined;
 

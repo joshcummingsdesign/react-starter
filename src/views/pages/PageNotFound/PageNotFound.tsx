@@ -1,10 +1,16 @@
 import React from 'react';
-import Layout from '@components/Layout';
+import { FormattedMessage } from 'react-intl';
+import { Link } from 'react-router-dom';
 
 const PageNotFound = () => (
-  <Layout>
-    <h1>Page Not Found</h1>
-  </Layout>
+  <div data-testid='page-not-found'>
+    <h1>
+      <FormattedMessage id='pageNotFound.heading' defaultMessage='Page Not Found' />
+    </h1>
+    <Link to='/' data-testid='back-to-home'>
+      <FormattedMessage id='pageNotFound.link' defaultMessage='Back' />
+    </Link>
+  </div>
 );
 
 export default PageNotFound;
