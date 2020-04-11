@@ -10,6 +10,7 @@
 1.  Create a file named `.env` in the root of the project containing the following environment variables:
 
         PORT=8080
+        REACT_APP_API_URL=https://jsonplaceholder.typicode.com
 
 2.  Install the project dependencies
 

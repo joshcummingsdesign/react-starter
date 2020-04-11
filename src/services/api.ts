@@ -1,10 +1,15 @@
-import axios, { AxiosPromise } from 'axios';
+import axios, { AxiosInstance, AxiosPromise } from 'axios';
+import config from 'config';
 import { Post } from 'models/Post';
 
 class ApiService {
-  private request = axios.create({
-    baseURL: 'https://jsonplaceholder.typicode.com',
-  });
+  private request: AxiosInstance;
+
+  constructor() {
+    this.request = axios.create({
+      baseURL: config.apiUrl,
+    });
+  }
 
   getPosts(): AxiosPromise<Post[]> {
     return this.request.get('/posts');
