@@ -24,10 +24,10 @@ rimrafSync(DATA_FILE);
 
 // Aggregate default messages
 const allMessages = {};
-globSync(MESSAGE_PATTERN).map(filename => {
+globSync(MESSAGE_PATTERN).map((filename) => {
   const result = babel.transformFileSync(filename, {
     presets: ['react-app'],
-    plugins: [reactIntl]
+    plugins: [reactIntl],
   });
   const { messages } = result.metadata['react-intl'];
   if (messages.length) {
@@ -46,7 +46,7 @@ fs.writeFileSync(EN_FILE, JSON.stringify(allMessages, null, 2) + '\n');
 
 // Aggregate data from all [lang].json files
 const mergedTranslations = globSync(FILE_PATTERN)
-  .map(filename => {
+  .map((filename) => {
     const locale = _.last(filename.split('/')).split('.json')[0];
     return { [locale]: JSON.parse(fs.readFileSync(filename, 'utf8')) };
   })

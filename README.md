@@ -7,18 +7,34 @@
 
 ## Getting Started
 
-1.  Create a file named `.env` in the root of the project containing the following environment variables:
-
-        PORT=8080
-        REACT_APP_API_URL=https://jsonplaceholder.typicode.com
-
-2.  Install the project dependencies
+1.  Install the project dependencies
 
         yarn
 
-3.  Start the development server
+2.  Start the development server
 
         yarn start
+
+## Environment Variables
+
+The environment variables found in `.env` are required and are as follows:
+
+```sh
+PORT=(number) # bind port 80 of the container to this port of the host machine
+APPLICATION=(web, test) # "web" starts the web server, "test" runs the tests
+CONTEXT=(integration, e2e) # if set to "e2e", tests will run without mocks
+REACT_APP_API_URL=(string) # the API URL
+```
+
+## Docker
+
+To build the image, run:
+
+    docker build -t joshcummingsdesign/react-starter -f docker/Dockerfile .
+
+To start the container, run:
+
+    docker-compose -f docker/docker-compose.yaml up
 
 ## Testing
 

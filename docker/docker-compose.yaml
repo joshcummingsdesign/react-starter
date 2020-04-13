@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  react-starter:
+    image: joshcummingsdesign/react-starter
+    ports:
+      - ${PORT}:80
+    environment:
+      - PORT=${PORT}
+      - APPLICATION=${APPLICATION}
+      - CONTEXT=${CONTEXT}
+      - REACT_APP_API_URL=${REACT_APP_API_URL}
