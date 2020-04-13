@@ -3,6 +3,7 @@
  * This gets passed to the config function, which returns a config object.
  */
 const registry = {
+  url: 'REACT_APP_URL',
   apiUrl: 'REACT_APP_API_URL',
 };
 

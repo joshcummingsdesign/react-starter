@@ -1,5 +1,7 @@
 # React Starter
 
+A pleasant little starter project bootstrapped with Create React App.
+
 ## Requirements
 
 - Node ^13.12.0
@@ -23,7 +25,8 @@ The environment variables found in `.env` are required and are as follows:
 PORT=(number) # bind port 80 of the container to this port of the host machine
 APPLICATION=(web, test) # "web" starts the web server, "test" runs the tests
 CONTEXT=(integration, e2e) # if set to "e2e", tests will run without mocks
-REACT_APP_API_URL=(string) # the API URL
+REACT_APP_URL=(string) # the URL of the frontend application
+REACT_APP_API_URL=(string) # the backend API URL
 ```
 
 ## Docker

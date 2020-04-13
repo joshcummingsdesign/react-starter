@@ -1,14 +1,14 @@
 import { initializeConfig } from './config';
 
 const mockRegistry = {
-  apiUrl: 'REACT_APP_API_URL',
   url: 'REACT_APP_URL',
+  apiUrl: 'REACT_APP_API_URL',
   analyticsId: 'REACT_APP_ANALYTICS_ID',
 };
 
 const expectedConfig = {
-  apiUrl: 'https://api.example.com',
   url: 'https://example.com',
+  apiUrl: 'https://api.example.com',
   analyticsId: '123456789',
 };
 
@@ -51,6 +51,6 @@ describe('config', () => {
     } catch (error) {
       message = error.message;
     }
-    expect(message).toEqual('Undefined environment variable: REACT_APP_API_URL');
+    expect(message).toEqual('Undefined environment variable: REACT_APP_URL');
   });
 });

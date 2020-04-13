@@ -5,7 +5,10 @@
   "header.heading": "React Starter",
   "posts.heading": "Posts",
   "posts.loading": "Loading…",
+  "site.title": "React Starter",
+  "site.description": "A pleasant little starter project bootstrapped with Create React App.",
   "homePage.heading": "Blog",
   "pageNotFound.heading": "Page Not Found",
-  "pageNotFound.link": "Back"
+  "pageNotFound.link": "Back",
+  "pageNotFound.title": "Page Not Found"
 }
