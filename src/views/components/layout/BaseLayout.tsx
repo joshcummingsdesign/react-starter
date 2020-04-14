@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import SEO, { ISEO } from 'views/components/SEO';
+import SEO, { ISEO } from 'views/components/layout/SEO';
 import Header from 'views/components/layout/Header';
 import Footer from 'views/components/layout/Footer/FooterContainer';
 
