@@ -1,4 +1,4 @@
-import { mockData, requestActions, waitForStateChange } from 'utils/test';
+import { spyOnWithContext, requestActions, waitForStateChange } from 'utils/test';
 import configureMockStore, { MockStoreEnhanced } from 'redux-mock-store';
 import thunk, { ThunkDispatch } from 'redux-thunk';
 import { range } from 'lodash';
@@ -23,8 +23,8 @@ describe('post actions', () => {
     });
   });
 
-  it('getPosts(): should request posts and create GET_POSTS action', async () => {
-    mockData(api, 'getPosts').mockResolvedValue({
+  it('getPosts(): should create GET_POSTS action', async () => {
+    spyOnWithContext(api, 'getPosts').mockResolvedValue({
       data: posts,
       status: 200,
       statusText: 'OK',

@@ -57,9 +57,9 @@ To start Jest in interactive mode, run
 
     yarn test
 
-Unit and end-to-end tests can be one in the same by utilizing the `mockData` function found in `utils/test`.
+Unit and end-to-end tests can be one in the same by utilizing the `spyOnWithContext` function found in `utils/test`.
 
-This is because the `mockData` function ignores mocks when the `CONTEXT` environment variable is set to `e2e` like so:
+This is because the `spyOnWithContext` function ignores mocks when the `CONTEXT` environment variable is set to `e2e` like so:
 
     CONTEXT=e2e
 
