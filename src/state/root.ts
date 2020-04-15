@@ -12,7 +12,7 @@ import settings from 'state/settings/reducers';
 import { SettingsState } from 'state/settings';
 import { SettingsAction } from 'state/settings/types';
 
-export const rootReducer = combineReducers({ post, requests, settings });
+export const rootReducer = combineReducers<RootState>({ post, requests, settings });
 
 export type RootState = {
   post: PostState;
