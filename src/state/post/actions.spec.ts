@@ -1,9 +1,11 @@
-import { requestActions, waitForStateChange } from 'utils/test';
+import { mockData, requestActions, waitForStateChange } from 'utils/test';
 import configureMockStore, { MockStoreEnhanced } from 'redux-mock-store';
 import thunk, { ThunkDispatch } from 'redux-thunk';
+import { range } from 'lodash';
 import { RootState } from 'state/root';
 import { getPosts } from './actions';
 import { PostAction, PostActionName } from './types';
+import { Post } from 'models/Post';
 import api from 'services/api';
 import { posts } from '__fixtures__/post';
 
@@ -21,8 +23,8 @@ describe('post actions', () => {
     });
   });
 
-  it('getPosts(): should create GET_POSTS action', async () => {
-    jest.spyOn(api, 'getPosts').mockResolvedValue({
+  it('getPosts(): should request posts and create GET_POSTS action', async () => {
+    mockData(api, 'getPosts').mockResolvedValue({
       data: posts,
       status: 200,
       statusText: 'OK',
@@ -30,7 +32,14 @@ describe('post actions', () => {
       config: {},
     });
 
-    const expectedActions = requestActions(PostActionName.GET_POSTS, { result: posts });
+    const result: Post[] = range(0, 4).map(() => ({
+      id: expect.any(Number),
+      userId: expect.any(Number),
+      title: expect.any(String),
+      body: expect.any(String),
+    }));
+
+    const expectedActions = requestActions(PostActionName.GET_POSTS, { result });
 
     store.dispatch(getPosts());
 

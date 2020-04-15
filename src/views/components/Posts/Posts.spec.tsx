@@ -1,14 +1,20 @@
 import React from 'react';
 import { render, mockData } from 'utils/test';
-import api from 'services/api';
 import Posts from './PostsContainer';
+import api from 'services/api';
 import { posts } from '__fixtures__/post';
 
 const renderComponent = () => render(<Posts />);
 
 describe('Posts', () => {
   it('fetches and renders posts', async () => {
-    mockData(api, 'getPosts', posts);
+    mockData(api, 'getPosts').mockResolvedValue({
+      data: posts,
+      status: 200,
+      statusText: 'OK',
+      headers: {},
+      config: {},
+    });
 
     const { getByTestId, findByTestId } = renderComponent();
 

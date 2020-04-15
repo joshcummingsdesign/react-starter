@@ -26,9 +26,7 @@ export const locales = Object.keys(langs) as LocaleState[];
 export const DEFAULT_LANG: LocaleState = 'en-US';
 
 /**
- * The LocaleProvider component
- *
- * Provides multi-lingual support for the application
+ * Provides multi-lingual support for the application.
  */
 const LocaleProvider: FC = ({ children }) => {
   const { locale } = useSelector((state: RootState) => state.settings);

@@ -2,8 +2,14 @@ import { Post } from 'models/Post';
 import { range } from 'lodash';
 
 export const post: Post = {
-  id: 0,
+  id: 1,
+  userId: 1,
   title: 'My Post 1',
+  body: 'Lorem ipsum...',
 };
 
-export const posts: Post[] = range(0, 4).map((_, i) => ({ id: i, title: `My Post ${i + 1}` }));
+export const posts: Post[] = range(0, 4).map((_, i) => ({
+  ...post,
+  id: i,
+  title: `My Post ${i + 1}`,
+}));

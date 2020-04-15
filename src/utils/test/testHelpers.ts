@@ -8,13 +8,12 @@ import { RequestsActionName } from 'state/requests/types';
  * If CONTEXT environment variable is set to e2e,
  * data will not be mocked.
  */
-export const mockData = (service: any, method: any, data: any) => {
-  jest.spyOn(service, method);
-  const mockedService = service[method] as jest.Mocked<any>;
-  mockedService.mockResolvedValue({ data });
+export const mockData: typeof jest.spyOn = (object: any, method: any) => {
+  const instance = jest.spyOn(object, method);
   if (process.env.CONTEXT === 'e2e') {
-    mockedService.mockRestore();
+    instance.mockRestore();
   }
+  return instance as any;
 };
 
 /**
