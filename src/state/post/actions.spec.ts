@@ -9,8 +9,6 @@ import { Post } from 'models/Post';
 import api from 'services/api';
 import { posts } from '__fixtures__/post';
 
-jest.mock('state/root');
-
 type DispatchExts = ThunkDispatch<RootState, undefined, PostAction>;
 
 const mockStore = configureMockStore<Partial<RootState>, DispatchExts>([thunk]);
@@ -23,7 +21,7 @@ describe('post actions', () => {
     });
   });
 
-  it('getPosts(): should create GET_POSTS action', async () => {
+  it('getPosts(): should request posts and create GET_POSTS action', async () => {
     spyOnWithContext(api, 'getPosts').mockResolvedValue({
       data: posts,
       status: 200,

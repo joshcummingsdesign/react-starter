@@ -10,6 +10,6 @@ export const post: Post = {
 
 export const posts: Post[] = range(0, 4).map((_, i) => ({
   ...post,
-  id: i,
+  id: i + 1,
   title: `My Post ${i + 1}`,
 }));
