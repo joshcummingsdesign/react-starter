@@ -7,6 +7,10 @@ import { posts } from '__fixtures__/post';
 const renderComponent = () => render(<Posts />);
 
 describe('Posts', () => {
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('fetches and renders posts', async () => {
     spyOnWithContext(api, 'getPosts').mockResolvedValue({
       data: posts,

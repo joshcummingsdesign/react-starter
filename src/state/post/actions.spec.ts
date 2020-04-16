@@ -21,6 +21,10 @@ describe('post actions', () => {
     });
   });
 
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
   it('getPosts(): should request posts and create GET_POSTS action', async () => {
     spyOnWithContext(api, 'getPosts').mockResolvedValue({
       data: posts,
