@@ -9,7 +9,7 @@ let requestCounter = 0;
  * Dispatches start and finish actions when a request is made.
  * Each request is tracked by a monotonically-increasing identifier.
  */
-export const request = <R, A extends RootAction>(thunk: Thunk<Promise<R>>, action: A) => async (
+const request = <R, A extends RootAction>(thunk: Thunk<Promise<R>>, action: A) => async (
   dispatch: Dispatch
 ) => {
   // Don't increase requestId in test environment as to not create side effects.
