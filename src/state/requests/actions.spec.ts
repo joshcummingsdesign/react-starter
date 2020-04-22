@@ -3,7 +3,7 @@ import { RequestsActionName } from './types';
 
 describe('requests actions', () => {
   it('startRequest(): should create START_REQUEST action', () => {
-    const requestId = 1;
+    const requestId = 0;
     const requestAction = { type: 'TEST_ACTION' };
 
     const expectedAction = {
@@ -16,7 +16,7 @@ describe('requests actions', () => {
   });
 
   it('finishRequest(): should create FINISH_REQUEST action', () => {
-    const requestId = 1;
+    const requestId = 0;
     const error = undefined;
 
     const expectedAction = {

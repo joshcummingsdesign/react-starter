@@ -1,6 +1,7 @@
 import React, { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useIntl } from 'react-intl';
+import { Dispatch } from 'state/types/thunk';
 import { RootState } from 'state/root';
 import { getPosts } from 'state/post/actions';
 import { PostActionName } from 'state/post/types';
@@ -12,7 +13,7 @@ const errorKeys: ErrorKeys = {};
 
 const PostsContainer = () => {
   const intl = useIntl();
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<Dispatch>();
 
   const { requests } = useSelector((state: RootState) => state);
   const isLoading = loadingSelector(requests, [PostActionName.GET_POSTS]);

@@ -1,6 +1,5 @@
-import { Store } from 'redux';
-import { debounce } from 'lodash';
 import { RequestsActionName } from 'state/requests/types';
+import { RequestError } from 'utils/error';
 
 /**
  * Conditionally mock data based on environment.
@@ -17,58 +16,24 @@ export const spyOnWithContext: typeof jest.spyOn = (object: any, method: any) =>
 };
 
 /**
- * Generate set of actions for API request
- *
- * @param type    - Expected action type
- * @param payload - Expected payload
- * @param error   - Expected error
+ * Generate set of actions for API request.
  */
-export const requestActions = <T>(type: T, payload: any, error?: any) => [
+export const requestActions = <T, R>(type: T, payload: object, error?: RequestError) => [
   {
+    type: RequestsActionName.START_REQUEST,
+    requestId: 0,
     requestAction: {
       type: type,
     },
-    requestId: 0,
-    type: RequestsActionName.START_REQUEST,
   },
   {
     type,
+    error,
     ...payload,
   },
   {
-    error,
-    requestId: 0,
     type: RequestsActionName.FINISH_REQUEST,
+    requestId: 0,
+    error,
   },
 ];
-
-/**
- *
- * @param store - Redux store (probably mocked)
- * @param assertions - A callback that performs assertions
- * @param wait - Amount of time in micro seconds that we should wait
- */
-export const waitForStateChange = (store: Store, assertions: () => void, wait: number = 1000) => {
-  return new Promise((resolve, reject) => {
-    let timeout: number;
-    const _assertions = debounce(() => {
-      if (timeout) {
-        clearTimeout(timeout);
-      }
-
-      try {
-        assertions();
-        resolve();
-      } catch (e) {
-        reject(e);
-      }
-    }, 100);
-
-    timeout = window.setTimeout(() => {
-      _assertions.cancel();
-      reject('Timed out in waitForStateChange');
-    }, wait);
-
-    store.subscribe(_assertions);
-  });
-};

@@ -1,12 +1,13 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Dispatch } from 'state/types/thunk';
 import { RootState } from 'state/root';
 import { LocaleState } from 'views/components/providers/LocaleProvider';
 import { changeLanguage } from 'state/settings/actions';
 import LanguageSelect from '.';
 
 const LanguageSelectContainer = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<Dispatch>();
 
   const { locale } = useSelector((state: RootState) => state.settings);
 
