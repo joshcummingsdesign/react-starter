@@ -7,6 +7,8 @@ import {
   getErrorMessage,
   getErrorType,
   isErrorOfType,
+  getErrorStatus,
+  isErrorOfStatus,
   translateError,
 } from '.';
 
@@ -83,6 +85,19 @@ describe('Error Utilities', () => {
     expect(
       isErrorOfType('not_found_error', mockAxiosError({ errorType: 'not_found_error' }))
     ).toEqual(true);
+  });
+
+  it('getErrorStatus(): gets the error status', () => {
+    expect(getErrorStatus(mockError)).toEqual(undefined);
+    expect(getErrorStatus(mockAxiosError())).toEqual(undefined);
+    expect(getErrorStatus(mockAxiosError({ status: 404 }))).toEqual(404);
+  });
+
+  it('isErrorOfStatus(): matches on error status', () => {
+    expect(isErrorOfStatus(404, mockError)).toEqual(false);
+    expect(isErrorOfStatus(404, mockAxiosError())).toEqual(false);
+    expect(isErrorOfStatus(404, mockAxiosError({ status: 200 }))).toEqual(false);
+    expect(isErrorOfStatus(404, mockAxiosError({ status: 404 }))).toEqual(true);
   });
 
   it('translateError(): translates an error message', () => {

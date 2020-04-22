@@ -29,6 +29,14 @@ export const getErrorType = (error: RequestError) =>
 
 export const isErrorOfType = (type: string, error: RequestError) => getErrorType(error) === type;
 
+export const getErrorStatus = (error: RequestError) =>
+  isAxiosError(error) && error.response && error.response.status
+    ? error.response.status
+    : undefined;
+
+export const isErrorOfStatus = (status: number, error: RequestError) =>
+  getErrorStatus(error) === status;
+
 export const translateError = (intl: IntlShape, errorKeys: ErrorKeys, error?: RequestError) => {
   if (error) {
     const errorType = getErrorType(error);
