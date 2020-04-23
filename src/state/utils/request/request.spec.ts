@@ -23,7 +23,7 @@ describe('post actions', () => {
         type: expectedAction,
       } as any);
 
-    const result = await store.dispatch(asyncAction());
+    const result = await store.dispatch(asyncAction()).catch(() => undefined);
 
     expect(result).toEqual(expectedResult);
     expect(store.getActions()).toEqual(expectedActions);
@@ -38,7 +38,7 @@ describe('post actions', () => {
         type: expectedAction,
       } as any);
 
-    const result = await store.dispatch(asyncAction());
+    const result = await store.dispatch(asyncAction()).catch(() => undefined);
 
     expect(result).toEqual(undefined);
     expect(store.getActions()).toEqual(expectedActions);

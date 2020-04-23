@@ -21,7 +21,9 @@ const PostsContainer = () => {
 
   const { posts } = useSelector((state: RootState) => state.post);
 
-  const _getPosts = useCallback(() => dispatch(getPosts()), [dispatch]);
+  const _getPosts = useCallback(async () => {
+    await dispatch(getPosts()).catch(() => undefined);
+  }, [dispatch]);
 
   useEffect(() => {
     _getPosts();

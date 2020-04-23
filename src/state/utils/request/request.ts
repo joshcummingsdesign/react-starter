@@ -28,6 +28,7 @@ const request = <R, A extends RootAction>(thunk: Thunk<Promise<R>>, action: A) =
   } catch (error) {
     dispatch({ ...action, error });
     dispatch(finishRequest(requestId, error));
+    throw error;
   }
 };
 
